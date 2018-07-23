@@ -1,0 +1,161 @@
+
+
+@import 'variable';
+
+@mixin clearfix {
+    zoom: 1;
+    &:before,
+    &:after {
+        content: '';
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+//center
+@mixin center($position: absolute) {
+    position: $position;
+    top: 50%;
+    left: 50%;
+    transform:translateX(-50%) translateY(-50%);
+}
+
+@mixin center-horizontal($position: absolute) {
+    position: $position;
+    left: 50%;
+    transform:translateX(-50%);
+}
+
+@mixin center-vertical($position: absolute) {
+    position: $position;
+    top: 50%;
+    transform:translateY(-50%);
+}
+
+//gradient
+@mixin gradient-vertical($start, $stop, $from: 0, $to: 100%) {
+    background: $start; // old browsers
+    background: linear-gradient(to bottom, $start $from, $stop $to); // W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+
+}
+
+@mixin gradient-horizontal($start, $stop, $from: 0, $to: 100%) {
+    background: $start; // old browsers
+    background: linear-gradient(to right, $start $from, $stop $to); // W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+
+}
+
+@mixin gradient-radial($start, $stop, $from: 0, $to: 100%, $shape: circle) {
+    background: $start; // old browsers
+    background: radial-gradient($shape at center, $start $from,$stop $to); // W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
+}
+
+//ellipsis
+@mixin text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+//多行溢出隐藏 multi-overflow
+@mixin multi-text-overflow($index:2) {
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $index;
+    overflow: hidden;
+}
+
+// triangle 三角形函数  实心带背景
+@mixin triangle($dir:top, $size: .18rm .18rem, $color: #666) {
+  content:"";
+  display: inline-block;
+  border-width: 0;
+  border-color: transparent;
+  border-style: solid;
+
+  @if $dir == top {
+    border-bottom-color: $color;
+    border-bottom-width: nth($size, 2);
+    border-left-width: nth($size, 1) / 2;
+    border-right-width: nth($size, 1) / 2;
+  }
+  @else if $dir == bottom {
+    border-top-color: $color;
+    border-top-width: nth($size, 2);
+    border-left-width: nth($size, 1) / 2;
+    border-right-width: nth($size, 1) / 2;
+  }
+  @else if $dir == left {
+    border-right-color: $color;
+    border-right-width: nth($size, 1);
+    border-top-width: nth($size, 2) / 2;
+    border-bottom-width: nth($size, 2) / 2;
+  }
+  @else if $dir == right {
+    border-left-color: $color;
+    border-left-width: nth($size, 1);
+    border-top-width: nth($size, 2) / 2;
+    border-bottom-width: nth($size, 2) / 2;
+  }
+}
+
+//空心三角箭头
+@mixin arrow($direction:right,$width:.25rem,$color:$border-color-base,$border-with:2px){
+  content: '';
+  display:inline-block;
+  width:$width;
+  height:$width;
+  transform: rotate(45deg);
+
+  @if $direction == top{
+    border-top: $border-with solid $color;
+    border-left: $border-with solid $color;
+  }
+  @else if $direction == bottom{
+    border-bottom: $border-with solid $color;
+    border-right: $border-with solid $color;
+  }
+  @else if $direction == left{
+    border-bottom: $border-with solid $color;
+    border-left: $border-with solid $color;
+  }
+  @else if $direction == right{
+    border-top:$border-with solid $color;
+    border-right: $border-with solid $color;
+  }
+}
+
+//带背景实心三角箭头
+@mixin solid-arrow($direction:right, $width:.15rem, $color:$border-color-base) {
+  display: inline-block;
+  width: 0px;
+  height: 0px;
+  content: '';
+  border-width: $width;
+  border-style: solid;
+  @if $direction==top {
+    border-color: transparent transparent $color transparent;
+  }
+  @else if $direction==bottom {
+    border-color: $color transparent transparent transparent;
+  }
+  @else if $direction==left {
+    border-color: transparent $color transparent transparent;
+  }
+  @else if $direction==right {
+    border-color: transparent transparent transparent $color;
+  }
+}
+
+//盒模型上下左右居中对齐
+@mixin flex-center(){
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
