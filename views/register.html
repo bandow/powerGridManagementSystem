@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="description" content="电网效益评估">
+	<meta name="keywords" content="电网效益评估">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<meta name="renderer" content="webkit">   <!-- 启用360浏览器的极速模式(webkit) -->  
+	<title>电网效益评估-注册</title>
+	<link rel="stylesheet" href="../styles/css/global.css">
+	<link rel="stylesheet" href="../styles/css/login.css">
+</head>
+<body>
+	<div class="register" id="registerContainer">
+		<h2>注册</h2>
+		<p v-if="show">{{errorMessages}}</p>
+		<label><input @keyup="handleKeyup" type="text" placeholder="账号" v-model="username"></label>
+		<label><input @keyup="handleKeyup" type="password" placeholder="密码" v-model="password"></label>
+		<label><input @keyup="handleKeyup" type="password" placeholder="再次确认密码" v-model="confirmPassword"></label>
+		<label><input @keyup="handleKeyup" type="text" placeholder="注册人姓名" v-model="name"></label>
+		<label><input @keyup="handleKeyup" type="text" placeholder="主册人单位" v-model="company"></label>
+		<label><input @keyup="handleKeyup" type="text" placeholder="注册人电话号码（选填）" v-model="phone"></label>
+		<button @click="register">注册</button >
+		<span v-on:click="ToLogin">已有账号？马上登录</span>
+	</div>
+	<script src="../plugins/vue/vue.min.js"></script>
+	<script>
+		var appLogin = new Vue({
+	        el: '#registerContainer',
+	        data: {
+	        	show:false,
+	        	checked:true,
+	            username:'',
+	            password:'',
+	            confirmPassword:'',
+	            name:'',
+	            company:'',
+	            phone:'',
+	            errorMessages:'',
+	        },
+	        mounted: function () {
+	        },
+	        methods: {
+	        	//注册login
+	        	register:function(){
+	        		var _this=this;
+	        		var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+	        		//判断账户不能为空
+	        		if (!this.username) {
+	                    this.errorMessages='账户不能为空';
+	                    this.show=true;
+	                    return;
+	                }
+	                //判断密码不能为空
+	                if (!this.password) {
+	                    this.errorMessages='密码不能为空';
+	                    this.show=true;
+	                    return;
+	                }
+	                if(this.confirmPassword!=this.password){
+	                	 this.errorMessages='密码不一致';
+	                    this.show=true;
+	                    return;
+	                }
+	                //判断姓名不能为空
+	                if(!this.name){
+	                	this.errorMessages='姓名不能为空';
+	                	this.show=true;
+	                    return;
+	                }
+	                //判断单位不能为空
+	                if(!this.company){
+	                	this.errorMessages='单位不能为空';
+	                	this.show=true;
+	                    return;
+	                }
+	                //判断电话号码不能为空
+	                if(!this.phone){
+	                	this.errorMessages='电话号码不能为空';
+	                	this.show=true;
+	                    return;
+	                }
+	                if (!reg.test(this.phone)) {
+	                    this.errorMessages='手机号码有误，请重填';
+	                    this.show=true;
+	                    return;
+	                }
+                    //与后端请求代码，本功能不需要与后台交互所以省略
+                    this.show=false;
+                    window.location.href="#"
+                    console.log("注册成功");
+	        	},
+	        	//跳转登录页面
+	        	ToLogin:function(){
+	        		console.log("跳转登录页面");
+	        		window.location.href="login.html"
+	        	},
+	        	//清除错误信息
+	            handleKeyup:function(){
+	            	this.show=false;
+	            },
+	        }
+	    });
+	</script>
+</body>
+</html>
