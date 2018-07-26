@@ -11,6 +11,7 @@
 	<title>电网效益评估-首页</title>
 	<link rel="stylesheet" href="../styles/css/global.css">
 	<link rel="stylesheet" href="../styles/css/index.css">
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_764059_7f3h7f6nm2q.css">
 </head>
 <body>
 	<div class="app" id="app">
@@ -27,21 +28,29 @@
 		<!-- 侧边菜单 -->
 		<div class="menu">
 			<div class="tab">
-				<a href="javascript:;">最新效益评估</a>
+				<a href="javascript:;"><i class="iconfont icon-zuixin"></i><span>最新效益评估</span></a>
+				<i class="iconfont icon-zhankai1"></i>
 			</div>
 			<ul>
 				<li>
-					<a href="javascript:;" @click="handleSubmenu">项目列表</a>
+					<a href="javascript:;" @click="handleSubmenu"><i class="iconfont icon-xiangmuliebiao"></i><span>项目列表</span></a>
+					<i class="iconfont icon-jiantou"></i>
 					<ul v-show="show">
 						<li v-for="(item,index) in projectList"><a href="javascript:;">{{item.projectName}}</a></li>
 					</ul>
 				</li>
-				<li><a href="javascript:;">光伏效益评估</a></li>
-				<li><a href="javascript:;">储能效益评估</a></li>
-				<li><a href="javascript:;">分布式能源站效益评估</a></li>
-				<li><a href="javascript:;">效益评估</a></li>
-				<li><a href="javascript:;">我的项目</a></li>
+				<li><a href="javascript:;"><i class="iconfont icon-guangfu"></i><span>光伏效益评估</span></a><i class="iconfont icon-jiantou"></i></li>
+				<li><a href="javascript:;"><i class="iconfont icon-chunengxitong"></i><span>储能效益评估</span></a><i class="iconfont icon-jiantou"></i></li>
+				<li><a href="javascript:;"><i class="iconfont icon-fenbushinengyuan"></i><span>分布式能源站效益评估</span></a><i class="iconfont icon-jiantou"></i></li>
+				<li><a href="javascript:;"><i class="iconfont icon-xiaoyifenxi"></i><span>效益评估</span></a><i class="iconfont icon-jiantou"></i></li>
+				<li><a href="javascript:;"><i class="iconfont icon-wodexiangmu"></i><span>我的项目</span></a><i class="iconfont icon-jiantou"></i></li>
 			</ul>	
+		</div>
+		<div class="project-list">
+			<label><input type="text" placeholder="搜索项目"></label>
+			<ul>
+				<li v-for="(item,index) in projectList"><a href="javascript:;">{{item.projectName}}</a></li>
+			</ul>
 		</div>
 		<!-- 主体内容 -->
 		<div class="container"></div>

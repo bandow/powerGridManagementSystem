@@ -45,12 +45,14 @@ body{
     top:$headerWidth;
     bottom: 0;
     z-index: 999;
-    width: 200px;
+    width: 250px;
     overflow-x: hidden;
     background-color:#e6eaed;
     color: #fff;
     border-right: 1px solid #dadfe3;
     .tab{
+    	position:relative;
+    	cursor:pointer;
     	>a{
 		    display: block;
 		    padding: 14px 20px;
@@ -59,10 +61,24 @@ body{
 	        background: #95a5a6;
     		color: #ffffff;
 		    border-bottom: 1px solid #e3e8eb;
+		    i{
+		    	margin-right:5px;
+		    	width: 18px;
+			    height: 18px;
+			    display: inline-block;
+		        font-size:14px;
+		    }
 		}
+		>i{
+	    	position:absolute;
+	    	top:15px;
+	    	right:20px;
+	    	color:#fff;
+	    }
     }
     >ul{
     	>li{
+    		position:relative;
     		>a{
     		    display: block;
 			    padding: 14px 20px;
@@ -71,7 +87,23 @@ body{
 			    color: #5f7676;
 			    background: #f0f3f5;
 			    border-top: 1px solid #e3e8eb;
+			    i{
+			    	margin-right:5px;
+			    	width: 18px;
+				    height: 18px;
+				    display: inline-block;
+			        font-size:14px;
+			    }
+			    &:hover{
+			    	background: #f5f7f8;
+			    }
     		}
+    		>i{
+		    	position:absolute;
+		    	top:15px;
+		    	right:20px;
+		    	color:#000;
+		    }
     		ul{
     			li>a{
     				display: block;
@@ -81,18 +113,60 @@ body{
 				    color: #5f7676;
 				    background: #e0e4e7;
 				    border-top: 1px solid #e3e8eb;
+				    &:hover{
+				    	background: #e9eff4;
+				    }
     			}
     		}
     	}
     }
 }
+.project-list{
+	position:fixed;
+    top:$headerWidth;
+    left:250px;
+    bottom:0;
+    z-index:901;
+    width:250px;
+    background: #e0e4e7;
+    label{
+    	display: block;
+    	margin:14px 20px;
+    	padding:0 10px;
+    	width:210px;
+    	height:40px;
+    	background-color:#fff;
+    	border-radius:30px;
+    	input{
+    		background:none;
+    		border:none;
+    		outline:none;
+    		width:100%;
+    		height:100%;
+    		font-size:14px;
+    	}
+    }
+    ul{
+		li>a{
+			display: block;
+		    padding: 14px 20px;
+		    position: relative;
+		    font-weight: 400;
+		    color: #5f7676;
+		    border-top: 1px solid #e3e8eb;
+		    &:hover{
+		    	background: #e9eff4;
+		    }
+		}
+	}
+}
 .container{
-	position: absolute;
-    left: 200px;
+	position:absolute;
+    left: 250px;
     right: 0;
     top:$headerWidth;
     bottom: 0;
-    z-index: 998;
+    z-index:900;
     width: auto;
     overflow: hidden;
     overflow-y: auto;
