@@ -55,26 +55,54 @@
 		<!-- 主体内容 -->
 		<div class="container">
 			<div class="container-header">
-				<h2>最新效益评估</h2>
-				<div class="history"><i class="iconfont icon-icon-p_lishibaobiao"></i><span>历史效益</span></div>
+				<ul>
+					<li>光伏效益评估</li>
+					<li>储能效益评估</li>
+					<li>储能效益评估</li>
+				</ul>
+				<div><i></i><span>历史效益</span></div>
 			</div>
 			<div class="container-content">
-				<div class="title"><h3>年效益分析表</h3></div>
-				<table class="table">
-					<thead>
-				        <tr>
-				          <th v-for="item in theadTitle">{{item.name}}</th>
-				        </tr>
-				    </thead>
-				    <tbody>
-				        <tr v-for="item in tbodyList">
-				          <td>{{item.name}}</td>
-				          <td>{{item.tel}}</td>
-				          <td>{{item.hobby}}</td>
-				          <td>{{item.address}}</td>
-				        </tr>
-				    </tbody>  
-				</table>
+				<div class="head">
+					<button>效益评估</button>
+					<button>保存</button>
+					<button>子系统对比</button>
+				</div>
+				<div class="model-variable">
+					<div class="title"><span>模型变量</span><i></i></div>
+					<dl>
+						<dd>
+							<span>项目建设期（年）：</span><label><input type="text"></label>
+						</dd>
+						<dd>
+							<span>短期贷款利率：</span><label><input type="text"></label>
+						</dd>
+						<dd>
+							<span>城乡维护建设税率：</span><label><input type="text"></label>
+						</dd>
+						<dd>
+							<span>长期贷款利率：</span><label><input type="text"></label>
+						</dd>
+						<dd>
+							<span>还款期：</span><label><input type="text"></label>
+						</dd>
+						<dd>
+							<span>教育附加费率：</span><label><input type="text"></label>
+						</dd>
+						<dd>
+							<span>基准收益率：</span><label><input type="text"></label>
+						</dd>
+						<dd>
+							<span>售电增值税：</span><label><input type="text"></label>
+						</dd>
+						<dd>
+							<span>残值回收率：</span><label><input type="text"></label>
+						</dd>
+					</dl>
+				</div>
+				<div class="project-variable">
+					<div class="title"><span>项目变量</span><i></i></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -94,14 +122,6 @@
 	        	],
 	        	searchResultArr:[],
 	        	keyword:'',
-	        	theadTitle:[{name:'Colume1'},{name:'Colume2'},{name:'Colume3'},{name:'Colume4'}],
-	        	tbodyList:[
-	        		{name:"赵伟",tel:"156*****1987",hobby:"钢琴、书法、唱歌",address:"上海市黄浦区金陵东路569号17楼"},
-                    {name:"李伟",tel:"182*****1538",hobby:"钢琴、书法、唱歌",address:"上海市奉贤区南桥镇立新路12号2楼"},
-                    {name:"孙伟",tel:"161*****0097",hobby:"钢琴、书法、唱歌",address:"上海市崇明县城桥镇八一路739号"},
-                    {name:"周伟",tel:"197*****1123",hobby:"钢琴、书法、唱歌",address:"上海市青浦区青浦镇章浜路24号"},
-                    {name:"吴伟",tel:"183*****6678",hobby:"钢琴、书法、唱歌",address:"上海市松江区乐都西路867-871号"}
-	        	],
 	        },
 	        mounted: function () {
 	        },
