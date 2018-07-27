@@ -27,14 +27,14 @@
 		</div>
 		<!-- 侧边菜单 -->
 		<div class="menu">
-			<div class="tab">
+			<div class="tab" @click="handleSubProject">
 				<a href="javascript:;"><i class="iconfont icon-zuixin"></i><span>最新效益评估</span></a>
 				<i class="iconfont icon-zhankai1"></i>
 			</div>
 			<ul>
 				<li>
 					<a href="javascript:;" @click="handleSubmenu"><i class="iconfont icon-xiangmuliebiao"></i><span>项目列表</span></a>
-					<i class="iconfont icon-jiantou"></i>
+					<i class="iconfont icon-jiantou" :class="{on:isOn}"></i>
 					<ul v-show="show">
 						<li v-for="(item,index) in projectList"><a href="javascript:;">{{item.projectName}}</a></li>
 					</ul>
@@ -46,10 +46,10 @@
 				<li><a href="javascript:;"><i class="iconfont icon-wodexiangmu"></i><span>我的项目</span></a><i class="iconfont icon-jiantou"></i></li>
 			</ul>	
 		</div>
-		<div class="project-list">
-			<label><input type="text" placeholder="搜索项目"></label>
+		<div class="project-list" :class="{active:isActive}">
+			<label><input type="text" placeholder="搜索项目" @keyup="handleSeach" v-model="keyword"></label>
 			<ul>
-				<li v-for="(item,index) in projectList"><a href="javascript:;">{{item.projectName}}</a></li>
+				<li v-for="(item,index) in searchResultArr"><a href="javascript:;">{{item.projectName}}</a></li>
 			</ul>
 		</div>
 		<!-- 主体内容 -->
@@ -62,17 +62,37 @@
 	        el: '#app',
 	        data: {
 	        	show:false,
+	        	isActive:false,
+	        	isOn:false,
 	        	projectList:[
 	        		{projectName:'项目一'},
 	        		{projectName:'项目二'},
 	        		{projectName:'项目三'}
 	        	],
+	        	searchResultArr:[],
+	        	keyword:'',
 	        },
 	        mounted: function () {
 	        },
 	        methods: {
 	        	handleSubmenu:function(){
 	        		this.show=!this.show;
+	        		this.isOn=!this.isOn;
+	        	},
+	        	handleSubProject:function(){
+	        		this.isActive=!this.isActive;
+	        	},
+	        	handleSeach:function(){
+	        		if(!this.keyword){
+        				this.searchResultArr=[];	
+        			}else{
+        				this.searchResultArr=[];
+	        			for(i in this.projectList){
+	        				if(this.projectList[i].projectName.indexOf(this.keyword)>=0){
+	        					this.searchResultArr.push(this.projectList[i]);
+	        				}
+	        			}
+        			}
 	        	},
 	        }
 	    });

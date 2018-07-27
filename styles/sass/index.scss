@@ -103,6 +103,12 @@ body{
 		    	top:15px;
 		    	right:20px;
 		    	color:#000;
+		    	transform: rotate(0deg);
+	    	    transition:transform .5s;
+		    }
+		    >i.on{
+	    	    transform: rotate(90deg);
+	    	    transition:transform .5s;
 		    }
     		ul{
     			li>a{
@@ -124,11 +130,12 @@ body{
 .project-list{
 	position:fixed;
     top:$headerWidth;
-    left:250px;
+    left:0;
     bottom:0;
     z-index:901;
     width:250px;
     background: #e0e4e7;
+    transition:left .5s;
     label{
     	display: block;
     	margin:14px 20px;
@@ -155,10 +162,14 @@ body{
 		    color: #5f7676;
 		    border-top: 1px solid #e3e8eb;
 		    &:hover{
+		    	
 		    	background: #e9eff4;
 		    }
 		}
 	}
+}
+.project-list.active{
+	left:250px;
 }
 .container{
 	position:absolute;
