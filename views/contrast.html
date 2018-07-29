@@ -8,7 +8,7 @@
 	<meta name="keywords" content="电网效益评估">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
 	<meta name="renderer" content="webkit">   <!-- 启用360浏览器的极速模式(webkit) -->  
-	<title>电网效益评估-效益评估</title>
+	<title>电网效益评估-子系统对比</title>
 	<link rel="stylesheet" href="../styles/css/global.css">
 	<link rel="stylesheet" href="../styles/css/index.css">
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_764059_hstfpsva5g4.css">
@@ -90,75 +90,31 @@
 					<button @click="handlePreserve">保存</button>
 					<button @click="handleContrast">子系统对比</button>
 				</div>
-				<div class="assess-all">
-					<div class="assess-list" style="display: block;">
-						<div class="model-variable">
-							<div class="title"><span>模型变量</span><i></i></div>
-							<dl>
-								<dd><span>项目建设期（年）：</span><label><input type="text"></label></dd>
-								<dd><span>短期贷款利率：</span><label><input type="text"></label></dd>
-								<dd><span>城乡维护建设税率：</span><label><input type="text"></label></dd>
-								<dd><span>长期贷款利率：</span><label><input type="text"></label></dd>
-								<dd><span>还款期：</span><label><input type="text"></label></dd>
-								<dd><span>教育附加费率：</span><label><input type="text"></label></dd>
-								<dd><span>基准收益率：</span><label><input type="text"></label></dd>
-								<dd><span>售电增值税：</span><label><input type="text"></label></dd>
-								<dd><span>残值回收率：</span><label><input type="text"></label></dd>
-							</dl>
-						</div>
-						<div class="project-variable">
-							<div class="title"><span>项目变量</span><i></i></div>
-							<dl>
-								<dd><span>光伏自用电量：</span><label><input type="text" v-model="electricityConsumption"></label></dd>
-								<dd><span>光伏电站参与辅助服务效益：</span><label><input type="text"></label></dd>
-								<dd><span>光伏项目运维费率：</span><label><input type="text"></label></dd>
-								<dd><span>并网侧输配电价：</span><label><input type="text"></label></dd>
-								<dd><span>用户购电成本：</span><label><input type="text"></label></dd>
-								<dd><span>非清洁能源度电排放物治理价值：</span><label><input type="text"></label></dd>
-								<dd><span>光伏供电负荷：</span><label><input type="text"></label></dd>
-								<dd><span>光伏补贴（国家）：</span><label><input type="text"></label></dd>
-								<dd><span>单位容量输电成本：</span><label><input type="text"></label></dd>
-								<dd><span>光伏补贴（地区）：</span><label><input type="text"></label></dd>
-								<dd><span>投资运营期：</span><label><input type="text"></label></dd>
-								<dd><span>光伏上网电价（含税）：</span><label><input type="text"></label></dd>
-								<dd><span>光伏上网电量：</span><label><input type="text"></label></dd>
-								<dd><span>光伏项目投资：</span><label><input type="text"></label></dd>
-							</dl>
-						</div>
-						<div class="content-list benefit" v-show="show">
-							<div class="title"><h3>年效益分析表</h3></div>
-							<table class="table">
-								<thead>
-							        <tr>
-							          <th v-for="item in theadTitle">{{item.name}}</th>
-							        </tr>
-							    </thead>
-							    <tbody>
-							        <tr v-for="item in tbodyList">
-							          <td>{{item.name}}</td>
-							          <td>{{item.tel}}</td>
-							          <td>{{item.hobby}}</td>
-							          <td>{{item.address}}</td>
-							        </tr>
-							    </tbody>  
-							</table>
-							<div class="chart">
-								 <div class="chart-list" id="chartOne" ></div>
-								 <div class="chart-list" id="chartTwo" ></div>
-								 <div class="chart-list" id="chartThree"></div>
-							</div>
-						</div>
-					</div>
-					<div class="assess-list">1</div>
-					<div class="assess-list">2</div>
+				<div class="content-list contrast">
+					<div class="title"><h3>子系统对比</h3></div>
+					<table class="table">
+						<thead>
+					        <tr>
+					          <th v-for="item in theadTitle">{{item.name}}</th>
+					        </tr>
+					    </thead>
+					    <tbody>
+					        <tr v-for="item in tbodyList">
+					          <td>{{item.name}}</td>
+					          <td>&nbsp;</td>
+					          <td>&nbsp;</td>
+					          <td>&nbsp;</td>
+					          <td>&nbsp;</td>
+					          <td>&nbsp;</td>
+					          <td>&nbsp;</td>
+					        </tr>
+					    </tbody>  
+					</table>
 				</div>
-				
 			</div>
 		</div>
 	</div>
 	<script src="../plugins/vue/vue.min.js"></script>
-	<!-- <script src="../plugins/jquery/jquery-3.3.1.min.js"></script> -->
-	<script src="../plugins/echarts/echarts.min.js"></script>
 	<script>
 		var appLogin = new Vue({
 	        el: '#app',
@@ -204,19 +160,33 @@
 	        	selected:'',		        //默认项目显示
 	        	searchResultArr:[],         //搜索数组
 	        	keyword:'',                 //搜索的值
+
 	        	tab:[
 	        		{tabName:'光伏效益评估'},
 	        		{tabName:'储能效益评估'},
 	        		{tabName:'储能效益评估'}
 	        	],
 	        	checkindex:0,
-	        	theadTitle:[{name:'Colume1'},{name:'Colume2'},{name:'Colume3'},{name:'Colume4'}],
+	        	theadTitle:[
+		        	{name:'项目名称'},
+		        	{name:'投资方效益分析NPV'},
+		        	{name:'综合效益分析NPV'},
+		        	{name:'投资方效益分析IRR'},
+		        	{name:'综合效益分析IRR'},
+		        	{name:'投资方效益分析投资回收期'},
+		        	{name:'综合效益分析投资回收期'},
+	        	],
 	        	tbodyList:[
-	        		{name:"赵伟",tel:"156*****1987",hobby:"钢琴、书法、唱歌",address:"上海市黄浦区金陵东路569号17楼"},
-                    {name:"李伟",tel:"182*****1538",hobby:"钢琴、书法、唱歌",address:"上海区南桥镇立新路12号2楼"},
-                    {name:"孙伟",tel:"161*****0097",hobby:"钢琴、书法、唱歌",address:"上海市崇明县城桥镇八一路739号"},
-                    {name:"周伟",tel:"197*****1123",hobby:"钢琴、书法、唱歌",address:"上海市青浦区青浦镇章浜路24号"},
-                    {name:"吴伟",tel:"183*****6678",hobby:"钢琴、书法、唱歌",address:"上海市松江区乐都西路867-871号"}
+	        		{name:"光伏效益"},
+                    {name:"储能效益"},
+                    {name:""},
+                    {name:""},
+                    {name:""},
+                    {name:""},
+                    {name:""},
+                    {name:""},
+                    {name:""},
+                    {name:""}
 	        	],
 	        	electricityConsumption:'',
 	        },
@@ -272,6 +242,7 @@
 	        		location.href="project.html"
 	        	},
 
+
 	        	handleTab:function(index){
 					this.checkindex = index;
 					var assessList=document.querySelectorAll(".assess-list");
@@ -293,93 +264,6 @@
 	        	handleContrast:function(){
 	        		location.href="contrast.html"
 	        	},
-	        	createChart:function(){
-	        		var _this=this;
-	        		var myChart1 = echarts.init(document.getElementById('chartOne'));
-	        		var myChart2 = echarts.init(document.getElementById('chartTwo'));
-	        		var myChart3 = echarts.init(document.getElementById('chartThree'));
-	        		myChart1.setOption({
-	        			title: {
-					        text: '效益表现求和',
-					        left:'center',
-					        textStyle:{
-								color:'#333',fontSize:12
-						    },
-						    padding: 5,
-					    },
-					    xAxis: {
-					        type: 'category',
-					        data: ['文字1', '文字2'],
-					         textStyle:{
-								color:'#666',fontSize:12
-						    },
-					    },
-					    yAxis: {
-					        type: 'value'
-					    },
-					    series: [{
-					        data: [_this.electricityConsumption, 2.0],
-					        type: 'bar'
-					    }],
-					    itemStyle:{
-					         color:'#37a2da',
-					    }
-	        		});
-	        		myChart2.setOption({
-	        			title: {
-					        text: '效益表现求和',
-					        left:'center',
-					        textStyle:{
-								color:'#333',fontSize:12
-						    },
-						    padding: 5,
-					    },
-					    xAxis: {
-					        type: 'category',
-					        data: ['文字1', '文字2'],
-					         textStyle:{
-								color:'#666',fontSize:12
-						    },
-					    },
-					    yAxis: {
-					        type: 'value'
-					    },
-					    series: [{
-					        data: [_this.electricityConsumption, 2.0],
-					        type: 'bar'
-					    }],
-					    itemStyle:{
-					         color:'#37a2da',
-					    }
-	        		});
-	        		myChart3.setOption({
-	        			title: {
-					        text: '效益表现求和',
-					        left:'center',
-					        textStyle:{
-								color:'#333',fontSize:12
-						    },
-						    padding: 5,
-					    },
-					    xAxis: {
-					        type: 'category',
-					        data: ['文字1', '文字2'],
-					         textStyle:{
-								color:'#666',fontSize:12
-						    },
-					    },
-					    yAxis: {
-					        type: 'value'
-					    },
-					    series: [{
-					        data: [_this.electricityConsumption, 2.0],
-					        type: 'bar'
-					    }],
-					    itemStyle:{
-					         color:'#37a2da',
-					    }
-	        		});
-	        	}
 	        }
 	    });
 	</script>

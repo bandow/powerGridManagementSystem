@@ -11,7 +11,7 @@
 	<title>电网效益评估-首页</title>
 	<link rel="stylesheet" href="../styles/css/global.css">
 	<link rel="stylesheet" href="../styles/css/index.css">
-	<link rel="stylesheet" href="http://at.alicdn.com/t/font_764059_l1nyn86m9p.css">
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_764059_hstfpsva5g4.css">
 </head>
 <body>
 	<div class="app" id="app">
@@ -27,29 +27,53 @@
 		</div>
 		<!-- 侧边菜单 -->
 		<div class="menu">
-			<div class="tab" @click="handleSubProject">
-				<a href="javascript:;"><i class="iconfont icon-zuixin"></i><span>最新效益评估</span></a>
-				<i class="iconfont icon-zhankai1"></i>
+			<div class="tab">
+				<div class="select-project">
+					<div class="l" @click="handleSubmenu">
+						<h2>{{selected}}</h2>
+						<i class="iconfont icon-msnui-triangle-down"></i>
+					</div>
+					<div class="r" @click="handleSubProject">
+						<i class="iconfont icon-sousuoliebiao"></i>
+					</div>
+				</div>
+				<div class="select-project-list" :class="{on:isOn}">
+					<ul v-modle="selected">
+						<li v-for="(item,index) in projectList" @click="selectedProjectList(index)">
+							<a href="javascript:;">{{item.projectName}}</a>
+							<i class="iconfont icon-jiantou"></i>
+						</li>
+					</ul>
+				</div>
+				<div class="sum-project">
+					<ul>
+						<li v-for="(items,index) in projectListNameArr">
+							<a href="javascript:;">{{items.name}}</a>
+							<i class="iconfont icon-jiantou"></i>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<ul>
-				<li>
-					<a href="javascript:;" @click="handleSubmenu"><i class="iconfont icon-xiangmuliebiao"></i><span>项目列表</span></a>
-					<i class="iconfont icon-jiantou" :class="{on:isOn}"></i>
-					<ul v-show="show">
-						<li v-for="(item,index) in projectList"><a href="javascript:;">{{item.projectName}}</a></li>
-					</ul>
+				<li @click="jumpAssess">
+					<a href="javascript:;"><i class="iconfont icon-xiaoyifenxi"></i><span>效益评估</span></a>
+					<i class="iconfont icon-jiantou"></i>
 				</li>
-				<li><a href="javascript:;"><i class="iconfont icon-guangfu"></i><span>光伏效益评估</span></a><i class="iconfont icon-jiantou"></i></li>
-				<li><a href="javascript:;"><i class="iconfont icon-chunengxitong"></i><span>储能效益评估</span></a><i class="iconfont icon-jiantou"></i></li>
-				<li><a href="javascript:;"><i class="iconfont icon-fenbushinengyuan"></i><span>分布式能源站效益评估</span></a><i class="iconfont icon-jiantou"></i></li>
-				<li><a href="javascript:;"><i class="iconfont icon-xiaoyifenxi"></i><span>效益评估</span></a><i class="iconfont icon-jiantou"></i></li>
-				<li><a href="javascript:;"><i class="iconfont icon-wodexiangmu"></i><span>我的项目</span></a><i class="iconfont icon-jiantou"></i></li>
+				<li @click="jumpProject">
+					<a href="javascript:;"><i class="iconfont icon-wodexiangmu"></i><span>我的项目</span></a>
+					<i class="iconfont icon-jiantou"></i>
+				</li>
 			</ul>	
 		</div>
 		<div class="project-list" :class="{active:isActive}">
-			<label><input type="text" placeholder="搜索项目" @keyup="handleSeach" v-model="keyword"></label>
+			<label>
+				<input type="text" placeholder="搜索项目" @keyup="handleSeach" v-model="keyword">
+				<i class="iconfont icon-sousuo"></i>
+			</label>
 			<ul>
-				<li v-for="(item,index) in searchResultArr"><a href="javascript:;">{{item.projectName}}</a></li>
+				<li v-for="(item,index) in searchResultArr" @click="selectedResultArr(index)">
+					<a href="javascript:;">{{item.projectName}}</a>
+				</li>
 			</ul>
 		</div>
 		<!-- 主体内容 -->
@@ -59,63 +83,231 @@
 				<div class="history"><i class="iconfont icon-icon-p_lishibaobiao"></i><span>历史效益</span></div>
 			</div>
 			<div class="container-content">
-				<div class="title"><h3>年效益分析表</h3></div>
-				<table class="table">
-					<thead>
-				        <tr>
-				          <th v-for="item in theadTitle">{{item.name}}</th>
-				        </tr>
-				    </thead>
-				    <tbody>
-				        <tr v-for="item in tbodyList">
-				          <td>{{item.name}}</td>
-				          <td>{{item.tel}}</td>
-				          <td>{{item.hobby}}</td>
-				          <td>{{item.address}}</td>
-				        </tr>
-				    </tbody>  
-				</table>
+				<div class="content-list benefit">
+					<div class="title"><h3>年效益分析表</h3></div>
+					<table class="table">
+						<thead>
+					        <tr>
+					          <th v-for="item in theadTitle">{{item.name}}</th>
+					        </tr>
+					    </thead>
+					    <tbody>
+					        <tr v-for="item in tbodyList">
+					          <td>{{item.name}}</td>
+					          <td>{{item.tel}}</td>
+					          <td>{{item.hobby}}</td>
+					          <td>{{item.address}}</td>
+					        </tr>
+					    </tbody>  
+					</table>
+					<div class="chart">
+						 <div class="chart-list" id="chartOne"></div>
+						 <div class="chart-list" id="chartTwo"></div>
+						 <div class="chart-list" id="chartThree"></div>
+					</div>
+				</div>
+				<div class="content-list cost">
+					<div class="title"><h3>成本分析表</h3></div>
+					<table class="table">
+						<thead>
+					        <tr>
+					          <th v-for="item in theadTitle">{{item.name}}</th>
+					        </tr>
+					    </thead>
+					    <tbody>
+					        <tr v-for="item in tbodyList">
+					          <td>{{item.name}}</td>
+					          <td>{{item.tel}}</td>
+					          <td>{{item.hobby}}</td>
+					          <td>{{item.address}}</td>
+					        </tr>
+					    </tbody>  
+					</table>
+					<div class="chart">
+						 <div class="chart-list" id="costchartOne"></div>
+						 <div class="chart-list" id="costchartTwo"></div>
+					</div>
+				</div>
+				<div class="content-list speculators">
+					<div class="title"><h3>投机方定量分析表</h3></div>
+					<table class="table">
+						<thead>
+					        <tr>
+					          <th v-for="item in theadTitle">{{item.name}}</th>
+					        </tr>
+					    </thead>
+					    <tbody>
+					        <tr v-for="item in tbodyList">
+					          <td>{{item.name}}</td>
+					          <td>{{item.tel}}</td>
+					          <td>{{item.hobby}}</td>
+					          <td>{{item.address}}</td>
+					        </tr>
+					    </tbody>  
+					</table>
+				</div>
+				<div class="content-list comprehensive">
+					<div class="title"><h3>综合效益分析表</h3></div>
+					<table class="table">
+						<thead>
+					        <tr>
+					          <th v-for="item in theadTitle">{{item.name}}</th>
+					        </tr>
+					    </thead>
+					    <tbody>
+					        <tr v-for="item in tbodyList">
+					          <td>{{item.name}}</td>
+					          <td>{{item.tel}}</td>
+					          <td>{{item.hobby}}</td>
+					          <td>{{item.address}}</td>
+					        </tr>
+					    </tbody>  
+					</table>
+				</div>
+				<div class="content-list summary">
+					<div class="title"><h3>效益分汇总析表</h3></div>
+					<table class="table">
+						<thead>
+					        <tr>
+					          <th v-for="item in theadTitle">{{item.name}}</th>
+					        </tr>
+					    </thead>
+					    <tbody>
+					        <tr v-for="item in tbodyList">
+					          <td>{{item.name}}</td>
+					          <td>{{item.tel}}</td>
+					          <td>{{item.hobby}}</td>
+					          <td>{{item.address}}</td>
+					        </tr>
+					    </tbody>  
+					</table>
+					<div class="chart">
+						<div class="chart-list" id="summaryChart"></div>
+					</div>
+				</div>
+				<div class="content-list qualitative-variable">
+					<div class="title"><h3>定性变量</h3></div>
+					<table class="table">
+						<thead>
+					        <tr>
+					          <th v-for="item in qualitativetheadTitle">{{item.name}}</th>
+					        </tr>
+					    </thead>
+					    <tbody>
+					        <tr v-for="item in qualitativetbodyList">
+					          <td>{{item.title}}</td>
+					          <td>{{item.qualitative}}</td>
+					          <td>{{item.remark}}</td>
+					        </tr>
+					    </tbody>  
+					</table>
+					<div class="chart">
+						<div class="chart-list" id="qualitativeChart"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 	<script src="../plugins/vue/vue.min.js"></script>
-	<script src="../plugins/jquery/jquery-3.3.1.min.js"></script>
+	<script src="../plugins/echarts/echarts.min.js"></script>
 	<script>
-		var appLogin = new Vue({
+		var app = new Vue({
 	        el: '#app',
 	        data: {
 	        	show:false,
 	        	isActive:false,
 	        	isOn:false,
 	        	projectList:[
-	        		{projectName:'项目一'},
-	        		{projectName:'项目二'},
-	        		{projectName:'项目三'}
-	        	],
-	        	searchResultArr:[],
-	        	keyword:'',
+	        		{
+	        			projectName:'项目一',
+	        			projectListName:[
+	        				{name:'光伏效益评估'},
+	        				{name:'储能效益评估'}
+	        			]
+	        		},
+	        		{
+	        			projectName:'项目二',
+	        			projectListName:[
+	        				{name:'光伏效益评估'},
+	        				{name:'储能效益评估'},
+	        				{name:'分布式能源站效益评估'}
+	        			]
+	        		},
+	        		{
+	        			projectName:'项目三',
+	        			projectListName:[
+	        				{name:'光伏效益评估'},
+	        				{name:'储能效益评估'},
+	        				{name:'分布式能源站'},
+	        				{name:'充电桩'},
+	        				{name:'分布式风电'},
+	        				{name:'智能配输电（存量)'},
+	        				{name:'智能配输电（增量）'},
+	        				{name:'AMI'},
+	        				{name:'智能家居、小区'},
+	        				{name:'需求侧响应'},
+	        				{name:'智慧能源与互联网'},
+	        				{name:'其他高级应用'}
+	        			]
+	        		}
+	        	],                          //数组
+	        	projectListNameArr:[],      //二级数组
+	        	selected:'',		        //默认项目显示
+	        	searchResultArr:[],         //搜索数组
+	        	keyword:'',                 //搜索的值
 	        	theadTitle:[{name:'Colume1'},{name:'Colume2'},{name:'Colume3'},{name:'Colume4'}],
 	        	tbodyList:[
 	        		{name:"赵伟",tel:"156*****1987",hobby:"钢琴、书法、唱歌",address:"上海市黄浦区金陵东路569号17楼"},
-                    {name:"李伟",tel:"182*****1538",hobby:"钢琴、书法、唱歌",address:"上海市奉贤区南桥镇立新路12号2楼"},
+                    {name:"李伟",tel:"182*****1538",hobby:"钢琴、书法、唱歌",address:"上海区南桥镇立新路12号2楼"},
                     {name:"孙伟",tel:"161*****0097",hobby:"钢琴、书法、唱歌",address:"上海市崇明县城桥镇八一路739号"},
                     {name:"周伟",tel:"197*****1123",hobby:"钢琴、书法、唱歌",address:"上海市青浦区青浦镇章浜路24号"},
                     {name:"吴伟",tel:"183*****6678",hobby:"钢琴、书法、唱歌",address:"上海市松江区乐都西路867-871号"}
 	        	],
+	        	qualitativetheadTitle:[{name:'输入变量'},{name:'定性'},{name:'备注'}],
+	        	qualitativetbodyList:[
+	        		{title:"可靠性",qualitative:"",remark:"可靠性提高程度，由高到低5-1填写"},
+                    {title:"CO2减排",qualitative:"",remark:"减排效果，由高到低5-1填写"},
+                    {title:"NOX减排",qualitative:"",remark:"减排效果，由高到低5-1填写"},
+                    {title:"就业",qualitative:"",remark:"项目创造就业机岗位，100人-0人，由高到低5-1填写"},
+                    {title:"投机",qualitative:"",remark:"项目投资及带动先关投资，按5000万-100万由高到低5-1填写"}
+	        	],
 	        },
 	        mounted: function () {
+	        	//开始渲染所有的项目
+	        	this.searchResultArr=this.projectList;
+	        	//默认显示项目名字
+	        	this.selected=this.projectList[0].projectName;	
+	        	this.projectListNameArr=this.projectList[0].projectListName;
+	        	//调用表单方法
+	        	this.createChart();	
 	        },
 	        methods: {
+	        	//切换选择下拉项目
 	        	handleSubmenu:function(){
-	        		this.show=!this.show;
 	        		this.isOn=!this.isOn;
 	        	},
+	        	//切换左侧项目
 	        	handleSubProject:function(){
 	        		this.isActive=!this.isActive;
 	        	},
+	        	//选择下拉项目
+	        	selectedProjectList:function(index){
+	        		this.selected=this.projectList[index].projectName;
+	        		this.projectListNameArr=this.projectList[index].projectListName;
+	        		this.isOn=false;
+	        		this.isActive=false;
+	        	},
+	        	//选择左侧项目
+	        	selectedResultArr:function(index){
+        			this.selected=this.searchResultArr[index].projectName;
+        			this.projectListNameArr=this.searchResultArr[index].projectListName;
+	        		this.isOn=false;
+	        		this.isActive=false;
+	        	},
+	        	//搜索项目
 	        	handleSeach:function(){
 	        		if(!this.keyword){
-        				this.searchResultArr=[];	
+        				this.searchResultArr=this.projectList;	
         			}else{
         				this.searchResultArr=[];
 	        			for(i in this.projectList){
@@ -125,6 +317,254 @@
 	        			}
         			}
 	        	},
+	        	//创造图表
+	        	createChart:function(){
+	        		var myChart1 = echarts.init(document.getElementById('chartOne'));
+					var myChart2 = echarts.init(document.getElementById('chartTwo'));
+					var myChart3 = echarts.init(document.getElementById('chartThree'));
+					var myChart4 = echarts.init(document.getElementById('costchartOne'));
+					var myChart5 = echarts.init(document.getElementById('costchartTwo'));
+					var summaryChart = echarts.init(document.getElementById('summaryChart'));
+					var qualitativeChart = echarts.init(document.getElementById('qualitativeChart'));
+					myChart1.setOption({
+					    title: {
+					        text: '效益表现求和',
+					        left:'center',
+					        textStyle:{
+								color:'#333',fontSize:12
+						    },
+						    padding: 5,
+					    },
+					    xAxis: {
+					        type: 'category',
+					        data: ['文字1', '文字2'],
+					         textStyle:{
+								color:'#666',fontSize:12
+						    },
+					    },
+					    yAxis: {
+					        type: 'value'
+					    },
+					    series: [{
+					        data: [1.20, 2.0],
+					        type: 'bar'
+					    }],
+					    itemStyle:{
+					         color:'#37a2da',
+					    }
+					});
+			        myChart2.setOption({
+					    title: {
+					        text: '效益表现求和',
+					        left:'center',
+					        textStyle:{
+								color:'#333',fontSize:12
+						    },
+						    padding: 5,
+					    },
+					    xAxis: {
+					        type: 'category',
+					        data: ['文字1', '文字2'],
+					         textStyle:{
+								color:'#666',fontSize:12
+						    },
+					    },
+					    yAxis: {
+					        type: 'value'
+					    },
+					    series: [{
+					        data: [1.20, 2.0],
+					        type: 'bar'
+					    }],
+					    itemStyle:{
+					         color:'#37a2da',
+					    }
+					});
+			        myChart3.setOption({
+					    title: {
+					        text: '效益表现求和',
+					        left:'center',
+					        textStyle:{
+								color:'#333',fontSize:12
+						    },
+						    padding: 5,
+					    },
+					    xAxis: {
+					        type: 'category',
+					        data: ['文字1', '文字2'],
+					         textStyle:{
+								color:'#666',fontSize:12
+						    },
+					    },
+					    yAxis: {
+					        type: 'value'
+					    },
+					    series: [{
+					        data: [1.20, 2.0],
+					        type: 'bar'
+					    }],
+					    itemStyle:{
+					         color:'#37a2da',
+					    }
+					});
+			        myChart4.setOption({
+					    title: {
+					        text: '效益表现求和',
+					        left:'center',
+					        textStyle:{
+								color:'#333',fontSize:12
+						    },
+						    padding: 5,
+					    },
+					    xAxis: {
+					        type: 'category',
+					        data: ['文字1', '文字2'],
+					         textStyle:{
+								color:'#666',fontSize:12
+						    },
+					    },
+					    yAxis: {
+					        type: 'value'
+					    },
+					    series: [{
+					        data: [1.20, 2.0],
+					        type: 'bar'
+					    }],
+					    itemStyle:{
+					         color:'#37a2da',
+					    }
+					});
+			        myChart5.setOption({
+					    title: {
+					        text: '效益表现求和',
+					        left:'center',
+					        textStyle:{
+								color:'#333',fontSize:12
+						    },
+						    padding: 5,
+					    },
+					    xAxis: {
+					        type: 'category',
+					        data: ['文字1', '文字2'],
+					         textStyle:{
+								color:'#666',fontSize:12
+						    },
+					    },
+					    yAxis: {
+					        type: 'value'
+					    },
+					    series: [{
+					        data: [1.20, 2.0],
+					        type: 'bar'
+					    }],
+					    itemStyle:{
+					         color:'#37a2da',
+					    }
+					});
+			        summaryChart.setOption({
+					    tooltip: {
+					        trigger: 'axis',
+					        axisPointer: {
+					            type: 'cross',
+					            crossStyle: {
+					                color: '#999'
+					            }
+					        }
+					    },
+					    toolbox: {
+					        feature: {
+					            dataView: {show: true, readOnly: false},
+					            magicType: {show: true, type: ['line', 'bar']},
+					            restore: {show: true},
+					            saveAsImage: {show: true}
+					        }
+					    },
+					    legend: {
+					        data:['NPV','投机回收期','IRR']
+					    },
+					    xAxis: [
+					        {
+					            type: 'category',
+					            data: ['投机方效益分析','综合效益分析'],
+					            axisPointer: {
+					                type: 'shadow'
+					            }
+					        }
+					    ],
+					    yAxis: [
+					        {
+					            type: 'value',
+					            name: '',
+					            min: -25,
+					            max: 25,
+					            interval: 5
+					        },
+					        {
+					            type: 'value',
+					            name: '',
+					            min: -5,
+					            max: 5,
+					            interval: 1
+					        }
+					    ],
+					    series: [
+					        {
+					            name:'NPV',
+					            type:'bar',
+					            data:[-20, -15]
+					        },
+					        {
+					            name:'投机回收期',
+					            type:'bar',
+					            data:[10, 20]
+					        },
+					        {
+					            name:'IRR',
+					            type:'line',
+					            yAxisIndex: 1,
+					            data:[-2.0, 4]
+					        }
+					    ]
+					});
+			        qualitativeChart.setOption({
+					    tooltip: {},
+					    radar: {
+					        // shape: 'circle',
+					        name: {
+					            textStyle: {
+					                color: '#fff',
+					                backgroundColor: '#999',
+					                borderRadius: 3,
+					                padding: [3, 5]
+					           }
+					        },
+					        indicator: [
+					           { name: '可靠性', max: 6500},
+					           { name: 'CO2减排', max: 16000},
+					           { name: 'NOX减排', max: 30000},
+					           { name: '就业', max: 38000},
+					           { name: '投机', max: 52000}
+					        ]
+					    },
+					    series: [{
+					        type: 'radar',
+					        // areaStyle: {normal: {}},
+					        data : [
+					            {
+					                value : [4300, 10000, 28000, 35000, 50000, 19000]
+					            }
+					        ]
+					    }]
+					});
+	        	},
+	        	//跳转页面-效益评估
+	        	jumpAssess:function(){
+	        		location.href="assess.html"
+	        	},
+	        	//跳转页面-我的项目
+	        	jumpProject:function(){
+	        		location.href="project.html"
+	        	}
 	        }
 	    });
 	</script>

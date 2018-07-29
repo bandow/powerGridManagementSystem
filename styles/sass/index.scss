@@ -1,176 +1,4 @@
 $headerWidth:50px;
-body{
-	background-color:#f2f5f7;
-}
-.header{
-	position: fixed;
-    top: 0;
-    left: 0;
-    padding:0 15px;
-    width:100%;
-    height:$headerWidth;
-    background-color: #313e3e;
-	.language{
-		margin-right:30px;
-		margin-top:13px;
-		float:right;
-		color:#fff;
-		line-height:24px;
-		em{
-			margin:0 10px;
-		}
-		span{
-			font-size:14px;
-			color:#fff;
-			cursor:pointer;
-		}
-	}
-	.username{
-		float:right;
-		margin-top:13px;
-		height: 24px;
-	    width: 24px;
-	    border-radius:50%;
-	    overflow:hidden;
-	    cursor:pointer;
-		img{
-			height:100%;
-		    width:100%;
-		}
-	}
-}
-.menu{
-	position: fixed;
-    left: 0;
-    top:$headerWidth;
-    bottom: 0;
-    z-index: 999;
-    width: 250px;
-    overflow-x: hidden;
-    background-color:#e6eaed;
-    color: #fff;
-    border-right: 1px solid #dadfe3;
-    .tab{
-    	position:relative;
-    	cursor:pointer;
-    	>a{
-		    display: block;
-		    padding: 14px 20px;
-		    position: relative;
-		    font-weight: 400;
-	        background: #95a5a6;
-    		color: #ffffff;
-		    border-bottom: 1px solid #e3e8eb;
-		    i{
-		    	margin-right:5px;
-		    	width: 18px;
-			    height: 18px;
-			    display: inline-block;
-		        font-size:14px;
-		    }
-		}
-		>i{
-	    	position:absolute;
-	    	top:15px;
-	    	right:20px;
-	    	color:#fff;
-	    }
-    }
-    >ul{
-    	>li{
-    		position:relative;
-    		>a{
-    		    display: block;
-			    padding: 14px 20px;
-			    position: relative;
-			    font-weight: 400;
-			    color: #5f7676;
-			    background: #f0f3f5;
-			    border-top: 1px solid #e3e8eb;
-			    i{
-			    	margin-right:5px;
-			    	width: 18px;
-				    height: 18px;
-				    display: inline-block;
-			        font-size:14px;
-			    }
-			    &:hover{
-			    	background: #f5f7f8;
-			    }
-    		}
-    		>i{
-		    	position:absolute;
-		    	top:15px;
-		    	right:20px;
-		    	color:#000;
-		    	transform: rotate(0deg);
-	    	    transition:transform .5s;
-		    }
-		    >i.on{
-	    	    transform: rotate(90deg);
-	    	    transition:transform .5s;
-		    }
-    		ul{
-    			li>a{
-    				display: block;
-				    padding: 14px 20px;
-				    position: relative;
-				    font-weight: 400;
-				    color: #5f7676;
-				    background: #e0e4e7;
-				    border-top: 1px solid #e3e8eb;
-				    &:hover{
-				    	background: #e9eff4;
-				    }
-    			}
-    		}
-    	}
-    }
-}
-.project-list{
-	position:fixed;
-    top:$headerWidth;
-    left:0;
-    bottom:0;
-    z-index:901;
-    width:250px;
-    background: #e0e4e7;
-    transition:left .5s;
-    label{
-    	display: block;
-    	margin:14px 20px;
-    	padding:0 10px;
-    	width:210px;
-    	height:40px;
-    	background-color:#fff;
-    	border-radius:30px;
-    	input{
-    		background:none;
-    		border:none;
-    		outline:none;
-    		width:100%;
-    		height:100%;
-    		font-size:14px;
-    	}
-    }
-    ul{
-		li>a{
-			display: block;
-		    padding: 14px 20px;
-		    position: relative;
-		    font-weight: 400;
-		    color: #5f7676;
-		    border-top: 1px solid #e3e8eb;
-		    &:hover{
-		    	
-		    	background: #e9eff4;
-		    }
-		}
-	}
-}
-.project-list.active{
-	left:250px;
-}
 .container{
 	position:absolute;
     left: 250px;
@@ -184,23 +12,23 @@ body{
     box-sizing: border-box;
 }
 .container-header{
-	position:absolute;
-	top:0;
-	left:0;
+	position:fixed;
+	top:50px;
+	left:250px;
 	right:0;
+	z-index:91;
 	background-color:#95a5a6;
-	width:100%;
-	height:47px;
-	border-bottom:1px solid #95a5a6;
-	padding:0 20px;
+	height:50px;	
 	h2{
 		float:left;
+		margin-left:20px;
 		font-size:16px;
-		line-height:48px;
+		line-height:50px;
 		color:#fff;
 		font-weight:normal;
 	}
 	.history{
+		margin-right:20px;
 		float:right;
 		cursor:pointer;
 		font-size:0;
@@ -218,24 +46,240 @@ body{
 			font-weight:normal;
 		}
 	}
+	ul{
+		float:left;
+		overflow:hidden;
+		li{
+			float:left;
+			line-height:50px;
+			width:120px;
+			text-align:center;
+			cursor:pointer;
+		}
+		li.on{
+			background-color:#4acfd1;
+			color:#fff;
+		}
+	}
 }
 .container-content{
-	padding:48px 10px 0 10px;
-	.title{
-		width:100%;
-		height:40px;
-		line-height:40px;
-		border-bottom:1px solid #e6eaed;
+	padding:50px 10px 0 10px;
+	.content-list{
+		.title{
+			width:100%;
+			height:50px;
+			line-height:50px;
+			border-bottom:1px solid #e6eaed;
+			h3{
+				font-size:16px;	
+			}
+		}
+		.table{
+			margin-top:10px;
+			width:100%;
+			thead{
+				background:#ccc;
+				th{
+					width:25%;
+					font-size:12px;
+					color:#fff;
+				}
+			}
+			tbody{
+				tr{
+					&:nth-child(2n){
+						background-color:#f4f4f4;
+					}
+					&:nth-child(2n+1){
+						background-color:#e2ecec;
+					}
+				}
+				td{
+					width:25%;
+					font-size:12px;
+					text-align:center;
+					&:nth-child(4){
+						text-align:left;
+					}
+				}
+			}
+			tr{
+				line-height:40px;
+			}
+		}
 	}
-	.table{
+	.benefit .chart{
+		margin:50px 0 0 0;
+		overflow:hidden;
+		.chart-list{
+		    float:left;
+			width:33.333%;
+			height:300px;
+		}
+	}
+	.speculators,.comprehensive{
+		margin-bottom:50px;
+	}
+	.cost .chart{
+		margin:50px 0 0 0;
+		overflow:hidden;
+		.chart-list{
+		    float:left;
+			width:50%;
+			height:300px;
+		}
+	}
+	.summary .chart{
+		margin:50px 0 0 0;
+		overflow:hidden;
+		.chart-list{
+		    float:left;
+			width:80%;
+			height:500px;
+		}
+	}
+	.qualitative-variable{
+		.table{
+			float:left;
+			width:50%;
+			margin-top:30px;
+			thead{
+				background:#ccc;
+				th{
+					font-size:12px;
+					color:#fff;
+					&:nth-child(1){
+						width:20%;
+					}
+					&:nth-child(2){
+						width:20%;
+					}
+					&:nth-child(3){
+						width:60%;
+					}
+				}
+			}
+			tbody{
+				tr{
+					&:nth-child(2n){
+						background-color:#f4f4f4;
+					}
+					&:nth-child(2n+1){
+						background-color:#e2ecec;
+					}
+				}
+				td{
+					font-size:12px;
+					text-align:center;
+					&:nth-child(3){
+						padding:10px 20px;
+						line-height:1.5;
+						text-align:left;
+					}
+				}
+			}
+			tr{
+				line-height:40px;
+			}
+		}
+		.chart-list{
+		    float:left;
+			width:50%;
+			height:500px;
+		}
+	}	
+    /*效益评估*/
+    .head{
+    	position:fixed;
+    	left:250px;
+    	top:99px;
+    	width:100%;
+    	padding:20px 10px;
+	    background-color: #f2f5f7;
+		button{
+			margin-right:30px;
+			background:none;
+			border:none;
+			outline:none;
+			width:100px;
+			height:30px;
+			border-radius:5px;
+			background-color:#0eaaef;
+			color:#fff;
+			cursor:pointer;
+			&:hover{
+				background-color:#169bd5;
+			}
+		}
+    }
+	.assess-all{
+		padding-top:70px;
+		.assess-list{
+			display:none;
+		}
+	}		
+}
+/*效益评估*/
+.model-variable,.project-variable{
+	.title{
+		padding:10px 20px;
+		background-color:#ddd;
+		span{
+			font-size:14px;
+		}
+	}
+	dl{
+		padding:20px 0;
+		overflow:hidden;
+		background:#fff;
+		dd{
+			padding:10px 0;
+			float:left;
+			width:30%;
+			overflow:hidden;
+			span{
+				float:left;
+				display:block;
+				width:60%;
+				font-size:12px;
+				line-height:30px;
+				text-align:right;
+			}
+			label{
+				padding:0 2%;
+				margin-left:60%;
+				display:block;
+				width:40%;
+				height:30px;
+				border:1px solid #ddd;
+				input{
+					background:none;
+					border:none;
+					outline:none;
+					width:100%;
+					height:100%;
+				}
+			}
+		}
+	}
+}
+/*子系统对比*/
+.container-content .content-list.contrast{
+   padding-top:70px;
+   .table{
+   	border:1px solid #ccc;
 		margin-top:10px;
 		width:100%;
 		thead{
 			background:#ccc;
 			th{
-				width:25%;
-				font-size:16px;
+				padding:10px;
+				width:14.28%;
+				font-size:12px;
 				color:#fff;
+				line-height:1.5;
+				text-align:center;
+			    vertical-align: middle;
 			}
 		}
 		tbody{
@@ -248,16 +292,148 @@ body{
 				}
 			}
 			td{
-				width:25%;
-				font-size:14px;
+				border:1px solid #ccc;
+				width:14.28%;
+				font-size:12px;
 				text-align:center;
-				&:nth-child(4){
-					text-align:left;
-				}
 			}
 		}
 		tr{
 			line-height:40px;
+		}
+	}
+}
+/*项目管理*/
+.project-manage{
+	padding:20px 10px;
+	.seach-project-name{
+		label{
+			margin:0 30px 0 10px;
+		    display: inline-block;
+			border-bottom:1px solid #ccc;
+			width:40%;
+			height:30px;
+			input{
+				background:none;
+				border:none;
+				outline:none;
+				width:100%;
+				height:100%;
+			}
+		}
+		button{
+			background:none;
+			border:none;
+			outline:none;
+			width: 100px;
+		    height: 30px;
+		    border-radius: 5px;
+		    background-color: #0eaaef;
+		    color: #fff;
+		    cursor: pointer;
+		}
+	}
+	.project-edit{
+		.project-edit-table{
+			margin-top:20px;
+			width:100%;
+			thead{
+				background:#ccc;
+				th{
+					font-size:12px;
+					color:#000;
+					border:1px solid #ccc;
+				}
+			}
+			tbody{
+				tr{
+					&:nth-child(2n){
+						background-color:#f4f4f4;
+					}
+					&:nth-child(2n+1){
+						background-color:#e2ecec;
+					}
+				}
+				td{
+					padding:10px;
+					font-size:12px;
+					text-align:center;
+					vertical-align:middle;
+					line-height:1.5;
+					border:1px solid #ccc;
+					i{
+						font-size:16px;
+						cursor:pointer;
+					}
+					i.select{
+						display:block;
+					}
+					i.not-select{
+						display:none;
+					}
+					.list{
+						display:inline-block;
+						margin-right:5px;
+						input{
+							float:left;
+						}
+						span{
+							float:left;
+						}
+					}
+					>a{
+						padding:0 5px;
+						color:red;
+					}
+					&:nth-child(1){
+						width:5%;
+					}
+					&:nth-child(2){
+						width:5%;
+					}
+					&:nth-child(3){
+						width:20%;
+					}
+					&:nth-child(4){
+						width:20%;
+					}
+					&:nth-child(5){
+						width:20%;
+					}
+					&:nth-child(6){
+						width:15%;
+					}
+					&:nth-child(7){
+						width:15%;
+					}
+				}
+				tr.on td{
+					i.select{
+						display:none;
+					}
+					i.not-select{
+						display:block;
+					}
+				}
+			}
+			tr{
+				line-height:40px;
+			}
+		}
+	}
+	.edit-btn{
+		margin:20px 0 0 0;
+		button{
+			margin-right:30px;
+			background:none;
+			border:none;
+			outline:none;
+			width: 100px;
+		    height: 30px;
+		    border-radius: 5px;
+		    background-color: #0eaaef;
+		    color: #fff;
+		    cursor: pointer;
 		}
 	}
 }

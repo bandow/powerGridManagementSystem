@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=9" />
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="description" content="电网效益评估">
+	<meta name="keywords" content="电网效益评估">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<meta name="renderer" content="webkit">   <!-- 启用360浏览器的极速模式(webkit) -->  
+	<title>电网效益评估-项目信息</title>
+	<link rel="stylesheet" href="../styles/css/global.css">
+	<link rel="stylesheet" href="../styles/css/index.css">
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_764059_hstfpsva5g4.css">
+</head>
+<body>
+	<div class="app" id="app">
+		<!-- 头部 -->
+		<div class="header">
+			<div class="logo"></div>
+			<div class="username">
+				<img src="../images/head.jpg" alt="">
+			</div>	
+			<div class="language">
+				<span>中</span><em>|</em><span>EN</span>
+			</div>
+		</div>
+		<!-- 侧边菜单 -->
+		<div class="menu">
+			<div class="tab">
+				<div class="select-project">
+					<div class="l" @click="handleSubmenu">
+						<h2>{{selected}}</h2>
+						<i class="iconfont icon-msnui-triangle-down"></i>
+					</div>
+					<div class="r" @click="handleSubProject">
+						<i class="iconfont icon-sousuoliebiao"></i>
+					</div>
+				</div>
+				<div class="select-project-list" :class="{on:isOn}">
+					<ul v-modle="selected">
+						<li v-for="(item,index) in projectList" @click="selectedProjectList(index)">
+							<a href="javascript:;">{{item.projectName}}</a>
+							<i class="iconfont icon-jiantou"></i>
+						</li>
+					</ul>
+				</div>
+				<div class="sum-project">
+					<ul>
+						<li v-for="(items,index) in projectListNameArr">
+							<a href="javascript:;">{{items.name}}</a>
+							<i class="iconfont icon-jiantou"></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<ul>
+				<li @click="jumpAssess">
+					<a href="javascript:;"><i class="iconfont icon-xiaoyifenxi"></i><span>效益评估</span></a>
+					<i class="iconfont icon-jiantou"></i>
+				</li>
+				<li @click="jumpProject">
+					<a href="javascript:;"><i class="iconfont icon-wodexiangmu"></i><span>我的项目</span></a>
+					<i class="iconfont icon-jiantou"></i>
+				</li>
+			</ul>	
+		</div>
+		<div class="project-list" :class="{active:isActive}">
+			<label>
+				<input type="text" placeholder="搜索项目" @keyup="handleSeach" v-model="keyword">
+				<i class="iconfont icon-sousuo"></i>
+			</label>
+			<ul>
+				<li v-for="(item,index) in searchResultArr" @click="selectedResultArr(index)">
+					<a href="javascript:;">{{item.projectName}}</a>
+				</li>
+			</ul>
+		</div>
+		<!-- 主体内容 -->
+		<div class="container">
+			<div class="container-header">
+				<h2>项目信息</h2>
+				<div class="history"><i class="iconfont icon-icon-p_lishibaobiao"></i><span>历史效益</span></div>
+			</div>
+			<div class="container-content">
+				<div class="project-info"></div>
+			</div>
+		</div>
+	</div>
+	<script src="../plugins/vue/vue.min.js"></script>
+	<script>
+		var appLogin = new Vue({
+	        el: '#app',
+	        data: {
+	        	show:false,
+	        	isActive:false,
+	        	isOn:false,
+	        	projectList:[
+	        		{
+	        			projectName:'项目一',
+	        			projectListName:[
+	        				{name:'光伏效益评估'},
+	        				{name:'储能效益评估'}
+	        			]
+	        		},
+	        		{
+	        			projectName:'项目二',
+	        			projectListName:[
+	        				{name:'光伏效益评估'},
+	        				{name:'储能效益评估'},
+	        				{name:'分布式能源站效益评估'}
+	        			]
+	        		},
+	        		{
+	        			projectName:'项目三',
+	        			projectListName:[
+	        				{name:'光伏效益评估'},
+	        				{name:'储能效益评估'},
+	        				{name:'分布式能源站'},
+	        				{name:'充电桩'},
+	        				{name:'分布式风电'},
+	        				{name:'智能配输电（存量)'},
+	        				{name:'智能配输电（增量）'},
+	        				{name:'AMI'},
+	        				{name:'智能家居、小区'},
+	        				{name:'需求侧响应'},
+	        				{name:'智慧能源与互联网'},
+	        				{name:'其他高级应用'}
+	        			]
+	        		}
+	        	],                          //数组
+	        	projectListNameArr:[],      //二级数组
+	        	selected:'',		        //默认项目显示
+	        	searchResultArr:[],         //搜索数组
+	        	keyword:'',                 //搜索的值
+
+	        	projectTbodyList:[
+	        		{
+	        			name:'2016深圳供电局综合能源建设项目',
+	        			abbreviation:'2018深圳综合能源',
+	        			sub:[
+	        				{projectName:'储能项目'},
+	        				{projectName:'其他项目'},
+	        				{projectName:'光伏'}
+	        			],
+	        			company:'深圳供电局',
+	        		},
+	        		{
+	        			name:'2017深圳供电局综合能源建设项目',
+	        			abbreviation:'2018深圳综合能源',
+	        			sub:[
+	        				{projectName:'储能项目'},
+	        				{projectName:'光伏'}
+	        			],
+	        			company:'深圳供电局',
+	        		},
+	        		{
+	        			name:'2018深圳供电局综合能源建设项目',
+	        			abbreviation:'2018深圳综合能源',
+	        			sub:[
+	        				{projectName:'储能项目'},
+	        				{projectName:'光伏'}
+	        			],
+	        			company:'深圳供电局',
+	        		},
+	        		{
+	        			name:'2019深圳供电局综合能源建设项目',
+	        			abbreviation:'2018深圳综合能源',
+	        			sub:[
+	        				{projectName:'储能项目'},
+	        				{projectName:'光伏'}
+	        			],
+	        			company:'深圳供电局',
+	        		}
+	        	],
+	        	seachProjectValueArr:[],
+	        	seachProjectValue:'',
+	        	inSelectOn:false,
+	        },
+	        mounted: function () {
+	        	//开始渲染所有的项目
+	        	this.searchResultArr=this.projectList;
+	        	//默认显示项目名字
+	        	this.selected=this.projectList[0].projectName;	
+	        	this.projectListNameArr=this.projectList[0].projectListName;
+	        	//开始渲染所有的项目列表
+	        	this.seachProjectValueArr=this.projectTbodyList;
+	        },
+	        methods: {
+	        	//切换选择下拉项目
+	        	handleSubmenu:function(){
+	        		this.isOn=!this.isOn;
+	        	},
+	        	//切换左侧项目
+	        	handleSubProject:function(){
+	        		this.isActive=!this.isActive;
+	        	},
+	        	//选择下拉项目
+	        	selectedProjectList:function(index){
+	        		this.selected=this.projectList[index].projectName;
+	        		this.projectListNameArr=this.projectList[index].projectListName;
+	        		this.isOn=false;
+	        		this.isActive=false;
+	        	},
+	        	//选择左侧项目
+	        	selectedResultArr:function(index){
+        			this.selected=this.searchResultArr[index].projectName;
+        			this.projectListNameArr=this.searchResultArr[index].projectListName;
+	        		this.isOn=false;
+	        		this.isActive=false;
+	        	},
+	        	//搜索项目
+	        	handleSeach:function(){
+	        		if(!this.keyword){
+        				this.searchResultArr=this.projectList;	
+        			}else{
+        				this.searchResultArr=[];
+	        			for(i in this.projectList){
+	        				if(this.projectList[i].projectName.indexOf(this.keyword)>=0){
+	        					this.searchResultArr.push(this.projectList[i]);
+	        				}
+	        			}
+        			}
+	        	},
+	        	//跳转页面-效益评估
+	        	jumpAssess:function(){
+	        		location.href="assess.html"
+	        	},
+	        	//跳转页面-我的项目
+	        	jumpProject:function(){
+	        		location.href="project.html"
+	        	},
+	        }
+	    });
+	</script>
+</body>
+</html>

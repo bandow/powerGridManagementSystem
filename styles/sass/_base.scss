@@ -14,8 +14,8 @@ html{
 html,body{
   font-family:$font-style-base;
   /*-webkit-user-select:none禁止用户进行复制.选择.*/
-  -webkit-user-select:none;
-  user-select:none;
+  /*-webkit-user-select:none;
+  user-select:none;*/
   width:100%;
   /*使用min-height:100%代替height：100%*/
   height: 100%;
