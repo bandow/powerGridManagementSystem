@@ -73,8 +73,13 @@ body{
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
+					>i{
+						margin-right:10px;
+						font-weight:normal;
+						font-size: 14px
+					}
 	    		}
-	    		i{
+	    		>i{
 	    			float: right;
 				    font-size: 12px;
 				    color: #fff;
@@ -253,4 +258,31 @@ body{
 }
 .project-list.active{
 	left:250px;
+}
+.container,.menu{
+	&::-webkit-scrollbar-track{
+        background-color: #F5F5F5;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.22);
+    }
+    /*定义滚动条高宽及背景*/
+    &::-webkit-scrollbar{
+        width:1px;
+        background-color: rgba(0, 0, 0, 0.34);
+    }
+    /*定义滚动条*/
+    &::-webkit-scrollbar-thumb{
+        background-color: #8b8b8b;
+        border-radius: 10px;
+    }
+    /*针对IE*/
+    scrollbar-arrow-color: #666; /*三角箭头的颜色*/
+	scrollbar-face-color: #333; /*立体滚动条的颜色*/
+	scrollbar-3dlight-color: #666; /*立体滚动条亮边的颜色*/
+	scrollbar-highlight-color: #666; /*滚动条空白部分的颜色*/
+	scrollbar-shadow-color: #999; /*立体滚动条阴影的颜色*/
+	scrollbar-darkshadow-color: #666; /*立体滚动条强阴影的颜色*/
+	scrollbar-track-color: #666; /*立体滚动条背景颜色*/
+	scrollbar-base-color:#f8f8f8; /*滚动条的基本颜色*/
+	Cursor:url(mouse.cur); /*自定义个性鼠标*/
+
 }

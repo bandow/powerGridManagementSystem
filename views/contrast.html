@@ -30,7 +30,7 @@
 			<div class="tab">
 				<div class="select-project">
 					<div class="l" @click="handleSubmenu">
-						<h2>{{selected}}</h2>
+						<h2><i class="iconfont icon-xiangmuliebiao"></i>{{selected}}</h2>
 						<i class="iconfont icon-msnui-triangle-down"></i>
 					</div>
 					<div class="r" @click="handleSubProject">
@@ -86,9 +86,7 @@
 			</div>
 			<div class="container-content">
 				<div class="head">
-					<button @click="handleAssess">效益评估</button>
 					<button @click="handlePreserve">保存</button>
-					<button @click="handleContrast">子系统对比</button>
 				</div>
 				<div class="content-list contrast">
 					<div class="title"><h3>子系统对比</h3></div>
@@ -162,8 +160,8 @@
 	        	keyword:'',                 //搜索的值
 
 	        	tab:[
+	        		{tabName:'子系统对比'},
 	        		{tabName:'光伏效益评估'},
-	        		{tabName:'储能效益评估'},
 	        		{tabName:'储能效益评估'}
 	        	],
 	        	checkindex:0,

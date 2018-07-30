@@ -8,7 +8,7 @@
 	<meta name="keywords" content="电网效益评估">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
 	<meta name="renderer" content="webkit">   <!-- 启用360浏览器的极速模式(webkit) -->  
-	<title>电网效益评估-效益评估</title>
+	<title>电网效益评估-变量输入编辑</title>
 	<link rel="stylesheet" href="../styles/css/global.css">
 	<link rel="stylesheet" href="../styles/css/index.css">
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_764059_hstfpsva5g4.css">
@@ -80,17 +80,13 @@
 		<div class="container">
 			<div class="container-header">
 				<ul>
+					<li>项目信息</li>
 					<li v-for="(item,index) in tab" :class="{'on':index==checkindex}" @click="handleTab(index)">{{item.tabName}}</li>
 				</ul>
 				<div class="history"><i class="iconfont icon-icon-p_lishibaobiao"></i><span>历史效益</span></div>
 			</div>
 			<div class="container-content">
-				<div class="head">
-					<button @click="handleAssess">效益评估</button>
-					<button @click="handlePreserve">保存</button>
-					<button @click="handleContrast">子系统对比</button>
-				</div>
-				<div class="assess-all">
+				<div class="assess-all project-info-edit">
 					<div class="assess-list" style="display: block;">
 						<div class="model-variable">
 							<div class="title"><span>模型变量</span><i></i></div>
@@ -125,38 +121,96 @@
 								<dd><span>光伏项目投资：</span><label><input type="text"></label></dd>
 							</dl>
 						</div>
-						<div class="content-list benefit" v-show="show">
-							<div class="title"><h3>年效益分析表</h3></div>
-							<table class="table">
-								<thead>
-							        <tr>
-							          <th v-for="item in theadTitle">{{item.name}}</th>
-							        </tr>
-							    </thead>
-							    <tbody>
-							        <tr v-for="item in tbodyList">
-							          <td>{{item.name}}</td>
-							          <td>{{item.tel}}</td>
-							          <td>{{item.hobby}}</td>
-							          <td>{{item.address}}</td>
-							        </tr>
-							    </tbody>  
-							</table>
-							<div class="chart">
-								 <div class="chart-list" id="chartOne" ></div>
-								 <div class="chart-list" id="chartTwo" ></div>
-								 <div class="chart-list" id="chartThree"></div>
-							</div>
+						<div class="edit-btn">
+							<button>保存</button>
+							<button>开展效益评估</button>
 						</div>
 					</div>
-					<div class="assess-list">1</div>
+					<div class="assess-list">
+						<div class="model-variable">
+							<div class="title"><span>模型变量</span><i></i></div>
+							<dl>
+								<dd><span>短期贷款利率：</span><label><input type="text"></label></dd>
+								<dd><span>城乡维护建设税率：</span><label><input type="text"></label></dd>
+								<dd><span>残值回收率：</span><label><input type="text"></label></dd>
+								<dd><span>长期贷款利率：</span><label><input type="text"></label></dd>
+								<dd><span>教育附加费率：</span><label><input type="text"></label></dd>
+								<dd><span>基准收益率：</span><label><input type="text"></label></dd>
+								<dd><span>售电增值税：</span><label><input type="text"></label></dd>
+							</dl>
+						</div>
+						<div class="project-variable">
+							<div class="title"><span>项目变量</span><i></i></div>
+							<dl>
+								<dd><span>峰段年放电量 ：</span><label><input type="text" v-model="electricityConsumption"></label></dd>
+								<dd><span>谷段充电量：</span><label><input type="text"></label></dd>
+								<dd><span>充电侧输配电价：</span><label><input type="text"></label></dd>
+								<dd><span>单位容量输变电投资成本：</span><label><input type="text"></label></dd>
+								<dd><span>单位电量GDP：</span><label><input type="text"></label></dd>
+								<dd><span>储能项目投资 ：</span><label><input type="text"></label></dd>
+								<dd><span>电池容量衰减（4000-8000）：</span><label><input type="text"></label></dd>
+								<dd><span>储能站配置容量：</span><label><input type="text"></label></dd>
+								<dd><span>峰段购电价（含税）：</span><label><input type="text"></label></dd>
+								<dd><span>平段购电价（含税）：</span><label><input type="text"></label></dd>
+								<dd><span>谷段购电价（含税）：</span><label><input type="text"></label></dd>
+								<dd><span>电池容量衰减(充放次数小于4000)：</span><label><input type="text"></label></dd>
+								<dd><span>投资运营期：</span><label><input type="text"></label></dd>
+								<dd><span>项目建设期（年）：</span><label><input type="text"></label></dd>
+								<dd><span>还款期（年）：</span><label><input type="text"></label></dd>
+								<dd><span>削减供电负荷：</span><label><input type="text"></label></dd>
+								<dd><span>储能系统：</span><label><input type="text"></label></dd>
+								<dd><span>充放电损耗：</span><label><input type="text"></label></dd>
+								<dd><span>充放电损耗：</span><label><input type="text"></label></dd>
+								<dd><span>度电污染物排放成本：</span><label><input type="text"></label></dd>
+								<dd><span>减少保障供电可靠性输变电总投资：</span><label><input type="text"></label></dd>
+								<dd><span>输变电寿命年限：</span><label><input type="text"></label></dd>
+								<dd><span>电价表：</span><label><input type="text"></label></dd>
+								<dd><span>高需求基本电价（元）：</span><label><input type="text"></label></dd>
+								<dd><span>大量用电基本电价（元）：</span><label><input type="text"></label></dd>
+							</dl>
+						</div>
+						<div class="edit-btn">
+							<button>保存</button>
+							<button>开展效益评估</button>
+						</div>
+					</div>
+					<div class="assess-list">
+						<div class="model-variable">
+							<div class="title"><span>模型变量</span><i></i></div>
+							<dl>
+								<dd><span>能源站系统投资：</span><label><input type="text"></label></dd>
+								<dd><span>能源站年售电量：</span><label><input type="text"></label></dd>
+								<dd><span>能源站年售热水：</span><label><input type="text"></label></dd>
+								<dd><span>天然气用量：</span><label><input type="text"></label></dd>
+								<dd><span>天然气单价：</span><label><input type="text"></label></dd>
+								<dd><span>耗水量：</span><label><input type="text"></label></dd>
+								<dd><span>水价：</span><label><input type="text"></label></dd>
+								<dd><span>能源站售冷单价：</span><label><input type="text"></label></dd>
+								<dd><span>能源站售电侧输配电价：</span><label><input type="text"></label></dd>
+								<dd><span>能源站系统负荷（冷热电）：</span><label><input type="text"></label></dd>
+								<dd><span>单位容量输变电成本：</span><label><input type="text"></label></dd>
+								<dd><span>能源站系统并网侧输配电价：</span><label><input type="text"></label></dd>
+								<dd><span>能源站售热电价：</span><label><input type="text"></label></dd>
+								<dd><span>能源站厂用电量：</span><label><input type="text"></label></dd>
+								<dd><span>天然气发电相比燃煤发电度电清洁价值：</span><label><input type="text"></label></dd>
+								<dd><span>能源站年售冷量：</span><label><input type="text"></label></dd>
+								<dd><span>能源站售电价：</span><label><input type="text"></label></dd>
+								<dd><span>修理费率：</span><label><input type="text"></label></dd>
+								<dd><span>保险费率：</span><label><input type="text"></label></dd>
+								<dd><span>定员（能源站）：</span><label><input type="text"></label></dd>
+								<dd><span>工资：</span><label><input type="text"></label></dd>
+							</dl>
+						</div>
+						<div class="edit-btn">
+							<button>保存</button>
+							<button>开展效益评估</button>
+						</div>
+					</div>
 				</div>	
 			</div>
 		</div>
 	</div>
 	<script src="../plugins/vue/vue.min.js"></script>
-	<!-- <script src="../plugins/jquery/jquery-3.3.1.min.js"></script> -->
-	<script src="../plugins/echarts/echarts.min.js"></script>
 	<script>
 		var appLogin = new Vue({
 	        el: '#app',
@@ -204,7 +258,8 @@
 	        	keyword:'',                 //搜索的值
 	        	tab:[
 	        		{tabName:'光伏效益评估'},
-	        		{tabName:'储能效益评估'}
+	        		{tabName:'储能效益评估'},
+	        		{tabName:'分布式能源站'}
 	        	],                          //切换标题后台出来的数据
 	        	checkindex:0,
 	        	theadTitle:[{name:'Colume1'},{name:'Colume2'},{name:'Colume3'},{name:'Colume4'}],
@@ -290,93 +345,6 @@
 	        	handleContrast:function(){
 	        		location.href="contrast.html"
 	        	},
-	        	createChart:function(){
-	        		var _this=this;
-	        		var myChart1 = echarts.init(document.getElementById('chartOne'));
-	        		var myChart2 = echarts.init(document.getElementById('chartTwo'));
-	        		var myChart3 = echarts.init(document.getElementById('chartThree'));
-	        		myChart1.setOption({
-	        			title: {
-					        text: '效益表现求和',
-					        left:'center',
-					        textStyle:{
-								color:'#333',fontSize:12
-						    },
-						    padding: 5,
-					    },
-					    xAxis: {
-					        type: 'category',
-					        data: ['文字1', '文字2'],
-					         textStyle:{
-								color:'#666',fontSize:12
-						    },
-					    },
-					    yAxis: {
-					        type: 'value'
-					    },
-					    series: [{
-					        data: [_this.electricityConsumption, 2.0],
-					        type: 'bar'
-					    }],
-					    itemStyle:{
-					         color:'#37a2da',
-					    }
-	        		});
-	        		myChart2.setOption({
-	        			title: {
-					        text: '效益表现求和',
-					        left:'center',
-					        textStyle:{
-								color:'#333',fontSize:12
-						    },
-						    padding: 5,
-					    },
-					    xAxis: {
-					        type: 'category',
-					        data: ['文字1', '文字2'],
-					         textStyle:{
-								color:'#666',fontSize:12
-						    },
-					    },
-					    yAxis: {
-					        type: 'value'
-					    },
-					    series: [{
-					        data: [_this.electricityConsumption, 2.0],
-					        type: 'bar'
-					    }],
-					    itemStyle:{
-					         color:'#37a2da',
-					    }
-	        		});
-	        		myChart3.setOption({
-	        			title: {
-					        text: '效益表现求和',
-					        left:'center',
-					        textStyle:{
-								color:'#333',fontSize:12
-						    },
-						    padding: 5,
-					    },
-					    xAxis: {
-					        type: 'category',
-					        data: ['文字1', '文字2'],
-					         textStyle:{
-								color:'#666',fontSize:12
-						    },
-					    },
-					    yAxis: {
-					        type: 'value'
-					    },
-					    series: [{
-					        data: [_this.electricityConsumption, 2.0],
-					        type: 'bar'
-					    }],
-					    itemStyle:{
-					         color:'#37a2da',
-					    }
-	        		});
-	        	}
 	        }
 	    });
 	</script>

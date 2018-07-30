@@ -11,6 +11,7 @@
 	<title>电网效益评估-项目信息</title>
 	<link rel="stylesheet" href="../styles/css/global.css">
 	<link rel="stylesheet" href="../styles/css/index.css">
+	<link rel="stylesheet" href="../plugins/jedate/jedate.css">
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_764059_hstfpsva5g4.css">
 </head>
 <body>
@@ -30,7 +31,7 @@
 			<div class="tab">
 				<div class="select-project">
 					<div class="l" @click="handleSubmenu">
-						<h2>{{selected}}</h2>
+						<h2><i class="iconfont icon-xiangmuliebiao"></i>{{selected}}</h2>
 						<i class="iconfont icon-msnui-triangle-down"></i>
 					</div>
 					<div class="r" @click="handleSubProject">
@@ -83,11 +84,44 @@
 				<div class="history"><i class="iconfont icon-icon-p_lishibaobiao"></i><span>历史效益</span></div>
 			</div>
 			<div class="container-content">
-				<div class="project-info"></div>
+				<div class="project-info">
+					<div class="title"><h3>基本信息:</h3></div>
+					<div class="fill-in-info">
+						<div class="info-list">
+							<span>项目名称：</span>
+							<label><input type="text" v-model="projectName"></label>
+						</div>
+						<div class="info-list">
+							<span>业主单位：</span>
+							<label><input type="text" v-model="proprietorUnit"></label>
+						</div>
+						<div class="info-list">
+							<span>地区：</span>
+							<label><input type="text" v-model="projectRegion"></label>
+						</div>
+						<div class="info-list">
+							<span>日期：</span>
+							<label><input id="yeschoose" type="text"></label>
+						</div>
+					</div>
+					<div class="title"><h3>子系统选择：</h3></div>
+					<div class="sub-system-select">
+						<ul>
+							<li v-for="(items,index) in subSystemList" @click="handleSubSystemList(index)">
+								<i v-if="items.selected" class="iconfont icon-weixuanze"></i>
+								<i v-else class="iconfont icon-xuanze-fangkuang"></i>
+								<span>{{items.projectName}}</span>
+							</li>
+						</ul>
+					</div>
+					<button @click="handleNextStep">下一步</button>
+				</div>
 			</div>
 		</div>
 	</div>
 	<script src="../plugins/vue/vue.min.js"></script>
+	<script src="../plugins/jquery/jquery-1.11.0.min.js"></script>
+	<script src="../plugins/jedate/jedate.js"></script>
 	<script>
 		var appLogin = new Vue({
 	        el: '#app',
@@ -133,49 +167,27 @@
 	        	selected:'',		        //默认项目显示
 	        	searchResultArr:[],         //搜索数组
 	        	keyword:'',                 //搜索的值
-
-	        	projectTbodyList:[
-	        		{
-	        			name:'2016深圳供电局综合能源建设项目',
-	        			abbreviation:'2018深圳综合能源',
-	        			sub:[
-	        				{projectName:'储能项目'},
-	        				{projectName:'其他项目'},
-	        				{projectName:'光伏'}
-	        			],
-	        			company:'深圳供电局',
-	        		},
-	        		{
-	        			name:'2017深圳供电局综合能源建设项目',
-	        			abbreviation:'2018深圳综合能源',
-	        			sub:[
-	        				{projectName:'储能项目'},
-	        				{projectName:'光伏'}
-	        			],
-	        			company:'深圳供电局',
-	        		},
-	        		{
-	        			name:'2018深圳供电局综合能源建设项目',
-	        			abbreviation:'2018深圳综合能源',
-	        			sub:[
-	        				{projectName:'储能项目'},
-	        				{projectName:'光伏'}
-	        			],
-	        			company:'深圳供电局',
-	        		},
-	        		{
-	        			name:'2019深圳供电局综合能源建设项目',
-	        			abbreviation:'2018深圳综合能源',
-	        			sub:[
-	        				{projectName:'储能项目'},
-	        				{projectName:'光伏'}
-	        			],
-	        			company:'深圳供电局',
-	        		}
+	        	subSystemList:[
+	        		{projectName:'光伏',selected:true},
+	        		{projectName:'分布式能源站',selected:true},
+					{projectName:'智能配输电（存量）',selected:true},
+					{projectName:'智能配输电（增量）',selected:true},
+					{projectName:'智能家居小区',selected:true},
+					{projectName:'供求侧响应',selected:true},
+					{projectName:'智慧能源与互联网',selected:true},
+					{projectName:'其他高级应用',selected:true},
+					{projectName:'充电桩',selected:true},
+					{projectName:'分布式风电',selected:true},
+					{projectName:'AMI',selected:true},
+					{projectName:'储能系统',selected:true}
 	        	],
-	        	seachProjectValueArr:[],
-	        	seachProjectValue:'',
-	        	inSelectOn:false,
+
+	        	isSystemOn:false,
+	        	isScr:true,
+	        	// 必须填写的内容
+	        	projectName:'',
+	        	proprietorUnit:'',
+	        	projectRegion:'',
 	        },
 	        mounted: function () {
 	        	//开始渲染所有的项目
@@ -183,8 +195,13 @@
 	        	//默认显示项目名字
 	        	this.selected=this.projectList[0].projectName;	
 	        	this.projectListNameArr=this.projectList[0].projectListName;
-	        	//开始渲染所有的项目列表
-	        	this.seachProjectValueArr=this.projectTbodyList;
+	        	//选择日期
+	        	 jeDate("#yeschoose",{
+			        onClose:false,
+			        isinitVal:true,
+			        initDate:true,   
+			        format: 'YYYY-MM-DD'
+			    });
 	        },
 	        methods: {
 	        	//切换选择下拉项目
@@ -230,6 +247,36 @@
 	        	jumpProject:function(){
 	        		location.href="project.html"
 	        	},
+	        	//子系统选择
+	        	handleSubSystemList:function(index){
+	        		this.subSystemList[index].selected=!this.subSystemList[index].selected;
+	        	},
+	        	//下一步
+	        	handleNextStep:function(){
+	        		//如果有一个不为true这个参数this.isScr为false
+	        		for (var i = 0; i < this.subSystemList.length; i++) { 
+		                if(this.subSystemList[i].selected != true){
+		                    this.isScr=false;
+		                }
+		            }
+	        		if(!this.projectName){
+	        			alert("项目名称不能为空！");
+	        			return;
+	        		}
+	        		if(!this.proprietorUnit){
+	        			alert("业主单位不能为空！");
+	        			return;
+	        		}
+	        		if(!this.projectRegion){
+	        			alert("地区不能为空！");
+	        			return;
+	        		}
+		            if(this.isScr){
+		            	alert("未选子系统");
+		            	return;
+		            }
+		            location.href="projectInfoEdit.html?name=listName"
+	        	}
 	        }
 	    });
 	</script>

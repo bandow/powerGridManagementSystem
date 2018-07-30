@@ -374,11 +374,13 @@ $headerWidth:50px;
 					.list{
 						display:inline-block;
 						margin-right:5px;
-						input{
-							float:left;
-						}
 						span{
 							float:left;
+							padding:3px 10px;
+							display:block;
+							border-radius:5px;
+							background-color:#ddd;
+							border:1px solid #ccc;
 						}
 					}
 					>a{
@@ -435,5 +437,122 @@ $headerWidth:50px;
 		    color: #fff;
 		    cursor: pointer;
 		}
+	}
+}
+/*项目信息*/
+.project-info{
+	margin-top:10px;
+	.title{
+		padding-left:20px;
+		width:100%;
+		line-height:50px;
+		background-color:#ddd;
+		h3{
+			font-size:14px;	
+		}
+	}
+	.fill-in-info{
+		padding:10px 0 15px;
+		width:100%;
+		height:auto;
+		font-size:0;
+		background-color:#fff;
+		.info-list{
+			position:relative;
+			margin:0 auto;
+			display:inline-block;
+			width:25%;
+			span{
+				margin:0 auto;
+				display:block;
+				line-height:30px;
+				font-size:14px;
+				width:200px;
+			}
+			label{
+				margin:0 auto;
+				display:block;
+				width:200px;
+				height:30px;
+				background-color:#fff;
+				font-size:0;
+				border:1px solid #ddd;
+				input{
+					padding:0 10px;
+					background:none;
+					border:none;
+					outline:none;
+					height:100%;
+					font-size:14px;
+				}
+			}
+		}
+	}
+	.sub-system-select{
+		padding:20px 0;
+		background-color:#fff;
+		ul{
+			overflow:hidden;
+			margin:0 auto;
+			max-width:900px;
+			li{
+				float:left;
+				margin-bottom:20px;
+				width:33%;
+				cursor:pointer;
+				span{
+					font-size:14px;
+					margin-left:10px;
+				}
+			}
+		}
+	}
+	>button{
+		background:none;
+		border:none;
+		outline:none;
+		margin:30px auto;
+		display: block;
+		width:150px;
+		height:40px;
+		border-radius:5px;
+		background-color:#0eaaef;
+		color:#fff;
+		cursor:pointer;
+		&:hover{
+			background-color:#169bd5;
+		}
+	}	
+}
+/*项目信息编辑*/
+.container-content .project-info-edit{
+	padding-top:10px;
+	.edit-btn{
+		margin:80px auto 0;
+		width:380px;
+		font-size:0;
+		button{
+			margin:0 20px;
+			background:none;
+			border:none;
+			outline:none;
+			display:inline-block;
+			width:150px;
+			height:40px;
+			border-radius:5px;
+			background-color:#0eaaef;
+			color:#fff;
+			font-size:14px;
+			cursor:pointer;
+			&:hover{
+				background-color:#169bd5;
+			}
+		}
+	}
+}
+/*项目历史*/
+.project-manage.project-history{
+	.project-edit .project-edit-table tbody td{
+		width:33.33%;
 	}
 }

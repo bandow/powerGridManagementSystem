@@ -8,7 +8,7 @@
 	<meta name="keywords" content="电网效益评估">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
 	<meta name="renderer" content="webkit">   <!-- 启用360浏览器的极速模式(webkit) -->  
-	<title>电网效益评估-项目管理</title>
+	<title>电网效益评估-当前历史版本</title>
 	<link rel="stylesheet" href="../styles/css/global.css">
 	<link rel="stylesheet" href="../styles/css/index.css">
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_764059_hstfpsva5g4.css">
@@ -79,55 +79,33 @@
 		<!-- 主体内容 -->
 		<div class="container">
 			<div class="container-header">
-				<h2>项目管理</h2>
+				<h2>当前历史版本</h2>
 				<div class="history"><i class="iconfont icon-icon-p_lishibaobiao"></i><span>历史效益</span></div>
 			</div>
 			<div class="container-content">
-				<div class="project-manage">
+				<div class="project-manage project-history">
 					<div class="seach-project-name">
 						<span>项目名称：</span>
-						<label><input type="text" v-model="seachProjectValue"></label>
+						<label><input type="text" v-model="seachHistoryValue"></label>
 						<button @click="seachProjectName">搜索</button>
 					</div>
 					<div class="project-edit">
 						<table class="project-edit-table">
 							<thead>
 						        <tr>
-									<th></th>
-									<th>序号</th>
 									<th>项目名称</th>
-									<th>项目简称</th>
-									<th>项目类型</th>
-									<th>所属单位</th>
-									<th>操作</th>
+									<th>年效益</th>
+									<th>最后编辑日期</th>
 						        </tr>
 						    </thead>
 						    <tbody>
-						        <tr v-for="(item,index) in seachProjectValueArr" :class="{on:inSelectOn}">
-						        	<td @click="selectBox(index)">
-						        		<i class="select iconfont icon-weixuanze"></i>
-						        		<i class="not-select iconfont icon-xuanze-fangkuang"></i>
-						        	</td>
-									<td>{{index+1}}</td>
+						        <tr v-for="(item,index) in seachHistoryArr" :class="{on:inSelectOn}">
 									<td>{{item.name}}</td>
-									<td>{{item.abbreviation}}</td>
-									<td>
-										<div class="list" v-for="items in item.sub">
-											<span>{{items.projectName}}</span>
-										</div>
-									</td>
-									<td>{{item.company}}</td>
-									<td>
-										<a @click="editProject" href="javascript:;">编辑</a>
-										<a @click="deleteProject(index)" href="javascript:;">删除</a>
-									</td>
+									<td>{{item.benefit}}</td>
+									<td>{{item.date}}</td>
 						        </tr>
 						    </tbody>  
 						</table>
-						<div class="edit-btn">
-							<button @click="addProject">添加</button>
-							<button @click="deleteBatchProject">批量删除</button>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -179,48 +157,41 @@
 	        	selected:'',		        //默认项目显示
 	        	searchResultArr:[],         //搜索数组
 	        	keyword:'',                 //搜索的值
-
-	        	projectTbodyList:[
+	        	//项目历史列表数组
+	        	projectHistory:[
 	        		{
 	        			name:'2016深圳供电局综合能源建设项目',
-	        			abbreviation:'2018深圳综合能源',
-	        			sub:[
-	        				{projectName:'储能项目'},
-	        				{projectName:'其他项目'},
-	        				{projectName:'光伏'}
-	        			],
-	        			company:'深圳供电局',
-	        		},
-	        		{
-	        			name:'2017深圳供电局综合能源建设项目',
-	        			abbreviation:'2018深圳综合能源',
-	        			sub:[
-	        				{projectName:'储能项目'},
-	        				{projectName:'光伏'}
-	        			],
-	        			company:'深圳供电局',
+	        			benefit:'18521',
+	        			date:'2018-08-08',
 	        		},
 	        		{
 	        			name:'2018深圳供电局综合能源建设项目',
-	        			abbreviation:'2018深圳综合能源',
-	        			sub:[
-	        				{projectName:'储能项目'},
-	        				{projectName:'光伏'}
-	        			],
-	        			company:'深圳供电局',
+	        			benefit:'18521',
+	        			date:'2018-08-08',
 	        		},
 	        		{
 	        			name:'2019深圳供电局综合能源建设项目',
-	        			abbreviation:'2018深圳综合能源',
-	        			sub:[
-	        				{projectName:'储能项目'},
-	        				{projectName:'光伏'}
-	        			],
-	        			company:'深圳供电局',
-	        		}       //项目列表数组
+	        			benefit:'18521',
+	        			date:'2018-08-08',
+	        		},
+	        		{
+	        			name:'2010深圳供电局综合能源建设项目',
+	        			benefit:'18521',
+	        			date:'2018-08-08',
+	        		},
+	        		{
+	        			name:'2011深圳供电局综合能源建设项目',
+	        			benefit:'18521',
+	        			date:'2018-08-08',
+	        		},
+	        		{
+	        			name:'2017深圳供电局综合能源建设项目',
+	        			benefit:'18521',
+	        			date:'2018-08-08',
+	        		}	     
 	        	],
-	        	seachProjectValueArr:[],
-	        	seachProjectValue:'',
+	        	seachHistoryArr:[],
+	        	seachHistoryValue:'',
 	        	inSelectOn:false,
 	        },
 	        mounted: function () {
@@ -229,8 +200,8 @@
 	        	//默认显示项目名字
 	        	this.selected=this.projectList[0].projectName;	
 	        	this.projectListNameArr=this.projectList[0].projectListName;
-	        	//开始渲染所有的项目列表
-	        	this.seachProjectValueArr=this.projectTbodyList;
+	        	//开始渲染所有的历史项目列表
+	        	this.seachHistoryArr=this.projectHistory;
 	        },
 	        methods: {
 	        	//切换选择下拉项目
@@ -280,39 +251,17 @@
 	        	
 	        	//搜索项目列表
 	        	seachProjectName:function(){
-	        		if(!this.seachProjectValue){
-	        			this.seachProjectValueArr=this.projectTbodyList;
+	        		if(!this.seachHistoryValue){
+	        			this.seachHistoryArr=this.projectHistory;
 	        		}else{
-	        			this.seachProjectValueArr=[];
-	        			for(i in this.projectTbodyList){
-		        			if(this.projectTbodyList[i].name.indexOf(this.seachProjectValue)>=0){
-		        				this.seachProjectValueArr.push(this.projectTbodyList[i]);
+	        			this.seachHistoryArr=[];
+	        			for(i in this.projectHistory){
+		        			if(this.projectHistory[i].name.indexOf(this.seachHistoryValue)>=0){
+		        				this.seachHistoryArr.push(this.projectHistory[i]);
 		        			}
 		        		}
 	        		}	
 	        	},
-	        	//选择项目列表是否打勾
-	        	selectBox:function(index){
-					this.inSelectOn=!this.inSelectOn
-	        	},
-	        	//编辑项目列表
-	        	editProject:function(){
-	        		location.href="projectInfo.html";
-	        	},
-	        	//删除项目列表
-	        	deleteProject:function(index){
-	        		this.seachProjectValueArr.splice(index,1);
-	        	},
-	        	//添加项目列表
-	        	addProject:function(){
-	        		location.href="#";
-	        	},
-	        	//批量删除项目列表
-	        	deleteBatchProject:function(){
-	        		if(this.inSelectOn==true){
-	        			this.seachProjectValueArr.splice(0,this.seachProjectValueArr.length);
-	        		}
-	        	}
 	        }
 	    });
 	</script>
