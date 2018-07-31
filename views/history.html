@@ -79,13 +79,15 @@
 		<!-- 主体内容 -->
 		<div class="container">
 			<div class="container-header">
-				<h2>当前历史版本</h2>
+				<h2 v-if="isTranslator">{{translator.zh.titleH}}</h2>
+				<h2 v-else>{{translator.en.titleH}}</h2>
 				<div class="history"><i class="iconfont icon-icon-p_lishibaobiao"></i><span>历史效益</span></div>
 			</div>
 			<div class="container-content">
 				<div class="project-manage project-history">
 					<div class="seach-project-name">
-						<span>项目名称：</span>
+						<span v-if="isTranslator">{{translator.zh.projectName}}：</span>
+						<span v-else>{{translator.en.projectName}}：</span>
 						<label><input type="text" v-model="seachHistoryValue"></label>
 						<button @click="seachProjectName">搜索</button>
 					</div>
@@ -193,6 +195,20 @@
 	        	seachHistoryArr:[],
 	        	seachHistoryValue:'',
 	        	inSelectOn:false,
+	        	//翻译对比
+	        	isTranslator:true,
+	        	translateObj:'en',  //后台返回的是英文还是中文
+	        	//后台返回的是英文对应中文json
+	        	translator: {
+		        	zh:{
+						titleH:'当前历史版本',
+						projectName:'项目名称',
+		        	},
+		        	en: {
+				        titleH: 'Current historical version',
+				        projectName:'entry name',
+				    },	
+				},
 	        },
 	        mounted: function () {
 	        	//开始渲染所有的项目
@@ -202,6 +218,14 @@
 	        	this.projectListNameArr=this.projectList[0].projectListName;
 	        	//开始渲染所有的历史项目列表
 	        	this.seachHistoryArr=this.projectHistory;
+
+	        	//翻译判断
+	        	// console.log(this.translateObj);
+	        	if(this.translateObj=='zh'){
+	        		this.isTranslator=true;
+	        	}else{
+	        		this.isTranslator=false;
+	        	}
 	        },
 	        methods: {
 	        	//切换选择下拉项目
@@ -247,8 +271,7 @@
 	        	jumpProject:function(){
 	        		location.href="project.html"
 	        	},
-
-	        	
+	
 	        	//搜索项目列表
 	        	seachProjectName:function(){
 	        		if(!this.seachHistoryValue){
