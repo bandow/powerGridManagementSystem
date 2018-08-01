@@ -12,7 +12,7 @@ body{
     padding:0 15px;
     width:100%;
     height:$headerWidth;
-    background-color: #39435c;
+    background-color: #36a9e1;
 	.language{
 		margin-right:30px;
 		margin-top:13px;
@@ -50,7 +50,7 @@ body{
     z-index: 999;
     width: 250px;
     overflow-x: hidden;
-    background-color:#39435c;
+    background-color:#383e4b;
     color: #fff;
     .tab{
     	position:relative;
@@ -58,7 +58,7 @@ body{
     	.select-project{
     		position:relative;
     		z-index:2;
-    		background-color:#37a2da;
+    		background-color:#2d323d;
 		    height: 50px;
     		.l{
     			float:left;
@@ -145,22 +145,23 @@ body{
     		transition:top .5s;
     	}
     	.sum-project{
-		    padding: 0 10px 10px;
+		    padding: 0 10px;
     		ul li{
     			position:relative;
     			a{
     				font-size:14px;
 				    display: block;
-			        margin-top:10px;
+			        /*margin-top:10px;*/
 				    padding: 10px 20px;
-			        color: #5f7676;
-			    	background-color: #f0f3f5;
+			        color: #fff;
+			        border-bottom:1px solid #333;
+			    	/*background-color: #f0f3f5;*/
     			}
     			i{
     				position:absolute;
 			    	top:10px;
 			    	right:10px;
-			    	color:#333;
+			    	color:#fff;
     			}
     			&:hover{
 					a{
@@ -184,8 +185,8 @@ body{
 			    position: relative;
 			    font-weight: 400;
 			    color: #fff;
-			    background-color:#95a5a6;
-			    border-top: 1px solid #9caeaf;
+			    /*background-color:#2d323d;*/
+			    border-bottom: 1px solid #333;
 			    i{
 			    	margin-right:5px;
 			    	width: 18px;
@@ -196,7 +197,6 @@ body{
 			    }
 			    &:hover{
 			    	background: #37a2da;
-			    	border-top: 1px solid #37a2da;
 			    }
     		}
     		>i{
@@ -248,7 +248,7 @@ body{
 		    padding:10px 20px;
 		    position: relative;
 		    font-weight: 400;
-		    color: #5f7676;
+		    color: #fff;
 	        border-bottom: 1px solid #fafafa;
 		    &:hover{    	
 		    	background: #e9eff4;
