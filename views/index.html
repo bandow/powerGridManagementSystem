@@ -27,6 +27,7 @@
 		</div>
 		<!-- 侧边菜单 -->
 		<div class="menu">
+			<h1>电网效益评估</h1>
 			<div class="tab">
 				<div class="select-project">
 					<div class="l" @click="handleSubmenu">
@@ -80,7 +81,7 @@
 		<div class="container">
 			<div class="container-header">
 				<h2>最新效益评估</h2>
-				<div class="history"><i class="iconfont icon-icon-p_lishibaobiao"></i><span>历史效益</span></div>
+				<div class="history" @click="handleHistory"><i class="iconfont icon-icon-p_lishibaobiao"></i><span>历史效益</span></div>
 			</div>
 			<div class="container-content">
 				<div class="content-list benefit">
@@ -316,6 +317,18 @@
 	        				}
 	        			}
         			}
+	        	},
+	        	//跳转页面-历史效益
+	        	handleHistory:function(){
+	        		location.href="history.html"
+	        	},
+	        	//跳转页面-效益评估
+	        	jumpAssess:function(){
+	        		location.href="assess.html"
+	        	},
+	        	//跳转页面-我的项目
+	        	jumpProject:function(){
+	        		location.href="project.html"
 	        	},
 	        	//创造图表
 	        	createChart:function(){
@@ -557,14 +570,6 @@
 					    }]
 					});
 	        	},
-	        	//跳转页面-效益评估
-	        	jumpAssess:function(){
-	        		location.href="assess.html"
-	        	},
-	        	//跳转页面-我的项目
-	        	jumpProject:function(){
-	        		location.href="project.html"
-	        	}
 	        }
 	    });
 	</script>
