@@ -3,28 +3,29 @@
 @import 'base';
 $headerWidth:50px;
 body{
-	background-color:#f2f5f7;
+	background-color:#f2f3f5;
 }
 .header{
 	position: fixed;
     top: 0;
-    left: 0;
+    left:250px;
+    right: 0;
     padding:0 15px;
-    width:100%;
     height:$headerWidth;
-    background-color: #36a9e1;
+    background-color: #fff;
+    box-shadow: 1px 2px 5px #ddd;
 	.language{
 		margin-right:30px;
 		margin-top:13px;
 		float:right;
-		color:#fff;
+		color:#333;
 		line-height:24px;
 		em{
 			margin:0 10px;
 		}
 		span{
 			font-size:14px;
-			color:#fff;
+			color:#333;
 			cursor:pointer;
 		}
 	}
@@ -45,27 +46,37 @@ body{
 .menu{
 	position: fixed;
     left: 0;
-    top:$headerWidth;
+    top:0;
     bottom: 0;
     z-index: 999;
     width: 250px;
     overflow-x: hidden;
-    background-color:#383e4b;
+    background-color:#20335d;
     color: #fff;
+    h1{
+    	position:relative;
+    	z-index:2;
+    	background-color:#1cc9b5;
+    	line-height:50px;
+    	text-align:center;
+    	color:#fff;
+    	font-size:16px;
+    }
     .tab{
     	position:relative;
     	cursor:pointer;
     	.select-project{
     		position:relative;
     		z-index:2;
-    		background-color:#2d323d;
+    		background-color:#0e1525;
 		    height: 50px;
+		    border-bottom:1px solid #4d5d7e;
     		.l{
     			float:left;
     			width:180px;
     			h2{
 					float: left;
-					padding:0 0 0 20px;
+					padding:0 0 0 10px;
 					font-size: 14px;
 					color: #ffffff;
 					line-height: 50px;
@@ -91,7 +102,7 @@ body{
     			float:right;
 			    width:50px;
 			    height:100%;
-    			border-left: 1px solid #ddd;
+    			border-left: 1px solid #4d5d7e;
     			i{
 				    font-size: 24px;
 					color: #fff;
@@ -130,8 +141,8 @@ body{
 					&:hover{
 						a{
 							color:#fff;
-							background-color:#4acfd1;
-							border-top: 1px solid #4acfd1;
+							background-color:#0e1525;
+							border-top: 1px solid #0e1525;
 						}
 						i{
 							color:#fff;
@@ -145,16 +156,15 @@ body{
     		transition:top .5s;
     	}
     	.sum-project{
-		    padding: 0 10px;
     		ul li{
     			position:relative;
     			a{
     				font-size:14px;
 				    display: block;
 			        /*margin-top:10px;*/
-				    padding: 10px 20px;
+				    padding: 10px 30px;
 			        color: #fff;
-			        border-bottom:1px solid #333;
+			        border-bottom:1px solid #4d5d7e;
 			    	/*background-color: #f0f3f5;*/
     			}
     			i{
@@ -165,7 +175,7 @@ body{
     			}
     			&:hover{
 					a{
-						background-color:#37a2da;
+						background-color:#0e1525;
 						color:#fff;
 					}
 					i{
@@ -181,12 +191,12 @@ body{
     		>a{
     			font-size:14px;
     		    display: block;
-			    padding: 14px 20px;
+			    padding: 14px 10px;
 			    position: relative;
 			    font-weight: 400;
 			    color: #fff;
 			    /*background-color:#2d323d;*/
-			    border-bottom: 1px solid #333;
+			    border-bottom: 1px solid #4d5d7e;
 			    i{
 			    	margin-right:5px;
 			    	width: 18px;
@@ -196,13 +206,13 @@ body{
 			        color:#fff;
 			    }
 			    &:hover{
-			    	background: #37a2da;
+			    	background: #0e1525;
 			    }
     		}
     		>i{
 		    	position:absolute;
 		    	top:15px;
-		    	right:20px;
+		    	right:10px;
 		    	color:#fff;
 		    }
     	}
@@ -215,7 +225,7 @@ body{
     bottom:0;
     z-index:901;
     width:250px;
-    background: #e0e4e7;
+    background: #fff;
     transition:left .5s;
     label{
     	position:relative;
@@ -226,7 +236,7 @@ body{
     	height:40px;
     	background-color:#fff;
     	border-radius:30px;
-    	border-bottom: 1px solid #fafafa;
+    	border: 1px solid #ddd;
     	input{
     		background:none;
     		border:none;
@@ -243,15 +253,17 @@ body{
     	}
     }
     ul{
+    	padding:0 20px;
 		li>a{
 			display: block;
-		    padding:10px 20px;
+		    padding:10px;
 		    position: relative;
 		    font-weight: 400;
-		    color: #fff;
-	        border-bottom: 1px solid #fafafa;
+		    color: #333;
+	        border-bottom: 1px solid #ddd;
 		    &:hover{    	
-		    	background: #e9eff4;
+		    	background: #0e1525;
+		    	color:#fff;
 		    }
 		}
 	}

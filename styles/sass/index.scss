@@ -13,36 +13,36 @@ $headerWidth:50px;
 }
 .container-header{
 	position:fixed;
-	top:50px;
-	left:250px;
+	top:70px;
+	left:270px;
 	right:0;
 	z-index:91;
-	background-color:#95a5a6;
-	height:50px;	
 	h2{
 		float:left;
-		margin-left:20px;
 		font-size:16px;
-		line-height:50px;
-		color:#fff;
-		font-weight:normal;
+		line-height:24px;
+		color:#333;
+		font-weight:bold;
 	}
 	.history{
-		margin-right:20px;
 		float:right;
 		cursor:pointer;
 		font-size:0;
+	    border-radius: 3px;
+	    padding: 0 10px;
+	    background-color: #fff;
+	    border:1px solid #ddd;
 		i{
 			display:inline;
-			margin-right:5px;
-			color:#fff;
+			margin-right:15px;
+			color:#333;
 			font-size:16px;
 		}
 		span{
 			display:inline-block;
 			font-size:14px;
-			line-height:47px;
-			color:#fff;
+			line-height:24px;
+			color:#333;
 			font-weight:normal;
 		}
 	}
@@ -63,7 +63,7 @@ $headerWidth:50px;
 	}
 }
 .container-content{
-	padding:50px 10px 0 10px;
+	padding:70px 0 0 10px;
 	.content-list{
 		.title{
 			width:100%;
@@ -305,7 +305,7 @@ $headerWidth:50px;
 }
 /*项目管理*/
 .project-manage{
-	padding:20px 10px;
+	padding:0 0 20px 10px;
 	.seach-project-name{
 		label{
 			margin:0 30px 0 10px;
@@ -334,11 +334,12 @@ $headerWidth:50px;
 		}
 	}
 	.project-edit{
+		box-shadow: 1px 2px 5px #ddd;
 		.project-edit-table{
 			margin-top:20px;
 			width:100%;
 			thead{
-				background:#95a5a6;
+				/*background:#95a5a6;*/
 				th{
 					font-size:12px;
 					color:#000;
